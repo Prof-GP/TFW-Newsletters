@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forensics Way - Weekly Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+        :root {
+            --newspaper-off-white: #fdfdfb;
+            --ink-black: #1a1a1a;
+            --accent-red: #9e1b1b;
+            --border-gray: #333;
+        }
+
+        body {
+            background-color: #e5e5e1;
+            font-family: 'Libre Baskerville', serif;
+            color: var(--ink-black);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            background-color: var(--newspaper-off-white);
+            padding: 50px 50px 20px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #c0c0ba;
+            min-height: 1100px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 5px solid var(--border-gray);
+            margin-bottom: 25px;
+        }
+
+        .masthead {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            padding-bottom: 10px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 2px solid var(--border-gray);
+            border-bottom: 2px solid var(--border-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: left;
+            border-bottom: 3px solid var(--border-gray);
+            margin: 0 0 25px 0;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        article { margin-bottom: 35px; }
+        h2 { font-size: 1.6rem; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.02em; }
+        h3 { font-family: 'Source Sans Pro', sans-serif; font-size: 0.85rem; color: var(--accent-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        p { font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 18px; word-spacing: -0.05em; }
+        
+        .threat-intel-column { background-color: #f4f4f0; padding: 25px; border-left: 1px solid #ddd; }
+        .cve-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #d1d1ca; }
+        .cve-tag { background: var(--accent-red); color: white; padding: 3px 10px; font-size: 0.75rem; font-weight: bold; font-family: 'Source Sans Pro', sans-serif; border-radius: 2px; display: inline-block; margin-bottom: 8px; }
+
+        /* FIXED COLORING & ALIGNMENT FOOTER */
+        footer.comprehensive-footer {
+            background: var(--newspaper-off-white);
+            color: var(--ink-black);
+            padding: 35px 0;
+            margin: 40px 0 0 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            border-top: 8px double var(--border-gray);
+        }
+
+        .footer-section h4 {
+            color: var(--ink-black);
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-red);
+            display: inline-block;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-entry { border-left: 3px solid var(--accent-red); padding-left: 15px; margin-bottom: 10px;}
+        .footer-entry strong { display: block; font-size: 0.9rem; color: var(--accent-red); margin-bottom: 2px; text-transform: uppercase; }
+        .footer-entry span { font-size: 0.75rem; color: #666; font-weight: bold; text-transform: uppercase; }
+        .footer-entry p { font-size: 0.85rem; line-height: 1.4; color: #333; text-align: left; margin: 5px 0 0 0; }
+
+        .case-studies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 10px; }
+        .case-card { padding: 20px; border: 1px solid #eee; background: #fff; }
+        
+        .page-number { 
+            text-align: center; 
+            font-family: 'Source Sans Pro', sans-serif; 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            color: #888; 
+            letter-spacing: 2px;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 900px) {
+            .main-content, .case-studies-grid, footer.comprehensive-footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Issue 01</span>
+            <span>Forensics Awareness This Week</span>
+            <span class="currentDate"></span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="column">
+            <div class="section-title">Front Page</div>
+            <article>
+                <h3>Legal Precedent</h3>
+                <h2>Federal Appeals Court Interrogates "Compelled Biometrics"</h2>
+                <p>In a watershed moment for digital civil liberties, the D.C. Circuit (<em>United States v. Brown</em>) is actively debating whether the <strong>First Amendment</strong> shields suspects from forced biometric device unlocking. The court is examining whether a face or fingerprint acts as a "digital key" that reveals private associations—making the act of unlocking a form of compelled speech.</p>
+                <p>This ruling could fundamentally shift traffic stop protocols, requiring warrants for biometric access that was previously considered a "search incident to arrest."</p>
+            </article>
+
+            <article style="border-top: 1px solid #ddd; padding-top: 25px;">
+                <h3>Today's Mandates</h3>
+                <h2>Synthetic Media Transparency Laws Go Live</h2>
+                <p>As of today, January 27, 2026, new state laws require all AI-generated media to contain verifiable cryptographic provenance. Forensic examiners now face a "Verification First" era, where the absence of these markers could render digital evidence inadmissible in New York and California courts.</p>
+            </article>
+        </div>
+
+        <div class="column threat-intel-column">
+            <h2 style="font-family: 'Playfair Display'; border-bottom: 2px solid #000; padding-bottom: 10px;">Threat Bulletin</h2>
+            
+            <div class="cve-item">
+                <span class="cve-tag">CRITICAL</span><br>
+                <strong>CVE-2026-20944</strong>
+                <p style="font-size: 0.9rem;">Remote Code Execution in Microsoft Office. Exploits are bypassing standard sandboxes via malformed .docx attachments.</p>
+            </div>
+
+            <div class="cve-item">
+                <span class="cve-tag">ACTIVE EXPLOIT</span><br>
+                <strong>CVE-2026-20805</strong>
+                <p style="font-size: 0.9rem;">Windows DWM privilege escalation zero-day. Federal agencies have been ordered to patch within 48 hours.</p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #1a1a1a;">Malware Spotlight</h3>
+            <div class="cve-item" style="border-bottom: none;">
+                <strong style="color: var(--accent-red);">Osiris Ransomware</strong>
+                <p style="font-size: 0.9rem;">A new strain that specifically targets .E01 and .AFF4 forensic image files, attempting to corrupt backups during the investigative phase.</p>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">— Page 1 —</div>
+</div>
+
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Historical Archives</span>
+            <span>History of Digital Investigation</span>
+            <span class="currentDate"></span>
+        </div>
+    </header>
+
+    <div style="flex-grow: 1;">
+        <div class="section-title">Case Studies: Historical Grid</div>
+        
+        <div class="case-studies-grid">
+            <div class="case-card">
+                <h3>The BTK Metadata Incident</h3>
+                <h2>The Floppy Disk Fingerprint</h2>
+                <p>Dennis Rader’s thirty-year run ended in 2005 through a single deleted Word file. The metadata listed "Dennis" and "Christ Lutheran Church," proving that deleted properties are never truly gone.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Ross Ulbricht: Silk Road</h3>
+                <h2>The Unlocked Capture</h2>
+                <p>The FBI’s 2013 capture of Ross Ulbricht relied on a public "snatch" of his laptop while it was still decrypted, securing 700,000 Bitcoins and his private journal of illegal operations.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>State v. Richard Dabate</h3>
+                <h2>The Fitbit Witness</h2>
+                <p>Wearable data from a Fitbit proved a victim was active over an hour after her husband claimed she had been murdered, showcasing the power of IoT evidence in court.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>EncroChat Breach</h3>
+                <h2>Breaking the "Unbreakable"</h2>
+                <p>By deploying a forensic "implant" to encrypted handsets, European agencies intercepted 100 million plain-text messages, dismantling global cartels in real-time.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="comprehensive-footer">
+        <div class="footer-section">
+            <h4>Priority CVE Advisories</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Jan 22, 2026</span>
+                    <strong>CVE-2026-24061 (Telnet)</strong>
+                    <p>GNU InetUtils Auth Bypass allowing remote root access. <i>Forensic Note:</i> Check for unusual USER env var logs.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Jan 21, 2026</span>
+                    <strong>CVE-2026-20045 (Cisco)</strong>
+                    <p>Zero-day Command Injection in Unified CM. <i>Forensic Note:</i> Look for unauthorized shell executions in call logs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Recent Malware Watch</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>New Strain: Jan 2026</span>
+                    <strong>GoldPickaxe Trojan</strong>
+                    <p>Sophisticated iOS/Android malware harvesting biometric face data for unauthorized bank access via deepfakes.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Alert: Jan 2026</span>
+                    <strong>SectopRAT v.2</strong>
+                    <p>Remote Access Trojan using "ClickFix" lures to mimic browser updates. Highly effective at credential exfiltration.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="page-number">— Page 2 —</div>
+</div>
+
+<script>
+    // Force the date to stay in EST (UTC-5) so it doesn't jump to "Tomorrow" at night
+    const now = new Date();
+    const estOffset = -5 * 60; // Minutes
+    const estDate = new Date(now.getTime() + (now.getTimezoneOffset() + estOffset) * 60000);
+    
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = estDate.toLocaleDateString('en-US', options);
+    document.querySelectorAll('.currentDate').forEach(el => el.textContent = dateStr);
+</script>
+
+</body>
+</html>

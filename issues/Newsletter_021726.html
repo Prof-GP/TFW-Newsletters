@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forensics Way - February 17, 2026 Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+        :root {
+            --newspaper-off-white: #fdfdfb;
+            --ink-black: #1a1a1a;
+            --accent-red: #9e1b1b;
+            --border-gray: #333;
+        }
+
+        body {
+            background-color: #e5e5e1;
+            font-family: 'Libre Baskerville', serif;
+            color: var(--ink-black);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            background-color: var(--newspaper-off-white);
+            padding: 50px 50px 20px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #c0c0ba;
+            min-height: 1100px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 5px solid var(--border-gray);
+            margin-bottom: 25px;
+        }
+
+        .masthead {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            padding-bottom: 10px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 2px solid var(--border-gray);
+            border-bottom: 2px solid var(--border-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: left;
+            border-bottom: 3px solid var(--border-gray);
+            margin: 0 0 25px 0;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        article { margin-bottom: 35px; }
+        h2 { font-size: 1.6rem; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.02em; }
+        h3 { font-family: 'Source Sans Pro', sans-serif; font-size: 0.85rem; color: var(--accent-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        p { font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 18px; word-spacing: -0.05em; }
+
+        .threat-intel-column { background-color: #f4f4f0; padding: 25px; border-left: 1px solid #ddd; }
+        .cve-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #d1d1ca; }
+        .cve-tag { background: var(--accent-red); color: white; padding: 3px 10px; font-size: 0.75rem; font-weight: bold; font-family: 'Source Sans Pro', sans-serif; border-radius: 2px; display: inline-block; margin-bottom: 8px; }
+
+        footer.comprehensive-footer {
+            background: var(--newspaper-off-white);
+            color: var(--ink-black);
+            padding: 35px 0;
+            margin: 40px 0 0 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            border-top: 8px double var(--border-gray);
+        }
+
+        .footer-section h4 {
+            color: var(--ink-black);
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-red);
+            display: inline-block;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-entry { border-left: 3px solid var(--accent-red); padding-left: 15px; margin-bottom: 10px;}
+        .footer-entry strong { display: block; font-size: 0.9rem; color: var(--accent-red); margin-bottom: 2px; text-transform: uppercase; }
+        .footer-entry span { font-size: 0.75rem; color: #666; font-weight: bold; text-transform: uppercase; }
+        .footer-entry p { font-size: 0.85rem; line-height: 1.4; color: #333; text-align: left; margin: 5px 0 0 0; }
+
+        .case-studies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 10px; }
+        .case-card { padding: 20px; border: 1px solid #eee; background: #fff; }
+
+        .page-number {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 900px) {
+            .main-content, .case-studies-grid, footer.comprehensive-footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Issue 03</span>
+            <span>Forensics Awareness This Week</span>
+            <span>Tuesday, February 17, 2026</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="column">
+            <div class="section-title">Front Page</div>
+            <article>
+                <h3>Threat Actor Spotlight</h3>
+                <h2>Velociraptor Turned Weapon: Attackers Deploy DFIR's Own Framework as a RAT</h2>
+                <p>In a striking reversal, threat actors exploiting <strong>SolarWinds Web Help Desk</strong> vulnerabilities have been observed deploying <em>Velociraptor</em>—a legitimate open-source digital forensics and incident response framework—as a remote access and data collection tool. After gaining initial entry, operators pivot through <strong>Cloudflare tunnels</strong> and Zoho infrastructure to establish covert command channels, then weaponize Velociraptor's VQL query engine to harvest system artifacts, enumerate credentials, and exfiltrate data.</p>
+                <p>DFIR teams investigating these intrusions must hunt specifically for unauthorized MSI installs, VQL script activity, and Cloudflare tunnel artifacts—while moving fast. Attackers are actively erasing traces, making volatile evidence preservation the immediate priority upon detection.</p>
+            </article>
+
+            <article style="border-top: 1px solid #ddd; padding-top: 25px;">
+                <h3>Evidentiary Challenge</h3>
+                <h2>Deepfakes Are Outpacing Forensics: The Coming Admissibility Crisis</h2>
+                <p>Digital forensics pioneer <strong>Hany Farid</strong> warned this week that generative AI has made convincing synthetic media faster and cheaper to produce than the forensic tools available to authenticate it. Courts in New York and California, operating under new AI provenance laws enacted in January, now require verifiable cryptographic markers on AI-generated media—but enforcement depends entirely on examiner capability to detect their absence.</p>
+                <p>Farid's central concern for practitioners is a credibility gap: jurors who cannot distinguish authentic footage from sophisticated deepfakes may begin to doubt all digital evidence. The implication for forensic examiners is stark—media authentication must now be treated as a foundational competency, not a specialist skill.</p>
+            </article>
+        </div>
+
+        <div class="column threat-intel-column">
+            <h2 style="font-family: 'Playfair Display'; border-bottom: 2px solid #000; padding-bottom: 10px;">Threat Bulletin</h2>
+
+            <div class="cve-item">
+                <span class="cve-tag">CRITICAL</span><br>
+                <strong>CVE-2026-21510</strong>
+                <p style="font-size: 0.9rem;">Windows Shell SmartScreen Security Feature Bypass. Attackers trick users into opening malicious .lnk shortcut files, silently bypassing SmartScreen warnings and executing untrusted code. One of six zero-days patched in Microsoft's February Patch Tuesday. <i>Forensic Note:</i> Check recent items, jump lists, and prefetch for unsigned .lnk launches.</p>
+            </div>
+
+            <div class="cve-item">
+                <span class="cve-tag">ACTIVE EXPLOIT</span><br>
+                <strong>CVE-2026-1731</strong>
+                <p style="font-size: 0.9rem;">BeyondTrust Remote Support &amp; Privileged Remote Access — Unauthenticated RCE. Internet-exposed helpdesk platforms are a primary initial-access vector. <i>Forensic Note:</i> Review remote support session logs and look for anomalous child processes spawned by BeyondTrust agents.</p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #1a1a1a;">Malware Spotlight</h3>
+            <div class="cve-item" style="border-bottom: none;">
+                <strong style="color: var(--accent-red);">Reynolds Ransomware</strong>
+                <p style="font-size: 0.9rem;">A newly disclosed ransomware family shipping with a built-in Bring Your Own Vulnerable Driver (BYOVD) module that terminates endpoint security tools before deploying encryption. <i>Forensic Note:</i> Look for signed-but-vulnerable driver artifacts in %TEMP% and event logs showing abrupt security service terminations.</p>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">— Page 1 —</div>
+</div>
+
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Historical Archives</span>
+            <span>History of Digital Investigation</span>
+            <span>Tuesday, February 17, 2026</span>
+        </div>
+    </header>
+
+    <div style="flex-grow: 1;">
+        <div class="section-title">Case Studies: Historical Grid</div>
+
+        <div class="case-studies-grid">
+            <div class="case-card">
+                <h3>The Golden State Killer (2018)</h3>
+                <h2>Genealogical DNA Closes a 40-Year Cold Case</h2>
+                <p>Joseph James DeAngelo evaded capture for four decades until investigators submitted crime-scene DNA to a public genealogy database, built a family tree, and narrowed suspects to one individual. Discarded items confirmed the match. The case pioneered investigative genetic genealogy as a forensic discipline and sparked major legal debate over DNA privacy.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Colonial Pipeline Recovery (2021)</h3>
+                <h2>DOJ Traces and Seizes $2.3M in Ransom Bitcoin</h2>
+                <p>After Colonial Pipeline paid DarkSide ransomware operators 75 Bitcoin, the DOJ's Digital Currency Unit traced the funds through blockchain analysis and seized 63.7 BTC within weeks. The case demonstrated that cryptocurrency transactions—though pseudonymous—leave an immutable, forensically traceable ledger, establishing a new standard for crypto-asset recovery operations.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Case Study: Lynx Ransomware</h3>
+                <h2>The RDP Pivot Point</h2>
+                <p>In a recent forensic engagement, Lynx operators gained access via a single non-MFA RDP account. Within six hours, they had mapped the entire network using legitimate tools, demonstrating the speed of modern ransomware pivots.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Artifact Analysis: Lynx</h3>
+                <h2>Persistence and Evasion</h2>
+                <p>Detailed investigation into the Lynx execution chain reveals the use of custom scripts to disable security software prior to the deployment of the encryption engine, highlighting a need for immutable logging.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="comprehensive-footer">
+        <div class="footer-section">
+            <h4>Priority CVE Advisories</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2026-4411 (RDS)</strong>
+                    <p>Remote Desktop Services Arbitrary File Execution. Actively leveraged by Lynx operators to drop initial-stage loaders. <i>Forensic Note:</i> Review RDP session logs and prefetch artifacts for unsigned loader activity.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2026-5522 (Windows)</strong>
+                    <p>Windows Service Persistence Vulnerability. Allows attackers to maintain elevated access without triggering system integrity alarms. <i>Forensic Note:</i> Audit service registry keys against known-good baselines.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Recent Malware Watch</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive: Feb 3, 2026</span>
+                    <strong>Lynx Ransomware</strong>
+                    <p>Sophisticated C++ strain prioritizing shadow copy destruction and network share encryption via compromised administrative tokens. Favors exposed RDP for initial access.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive: Feb 2026</span>
+                    <strong>SectopRAT v.2</strong>
+                    <p>Remote Access Trojan using "ClickFix" browser-update lures for credential exfiltration. Frequently observed as a secondary payload during the Lynx initial access phase.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="page-number">— Page 2 —</div>
+</div>
+
+</body>
+</html>

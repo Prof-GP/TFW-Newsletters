@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forensics Way — Archive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+        :root {
+            --off-white: #fdfdfb;
+            --ink-black: #1a1a1a;
+            --accent-red: #9e1b1b;
+            --border-gray: #333;
+            --bg: #e5e5e1;
+            --card-bg: #fdfdfb;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Libre Baskerville', serif;
+            color: var(--ink-black);
+            min-height: 100vh;
+        }
+
+        /* ── MASTHEAD ── */
+        .site-header {
+            background: var(--off-white);
+            border-bottom: 5px solid var(--border-gray);
+            text-align: center;
+            padding: 40px 20px 0 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .masthead {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            padding-bottom: 12px;
+        }
+
+        .site-sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            border-top: 2px solid var(--border-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* ── MAIN LAYOUT ── */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px 80px;
+        }
+
+        .archive-intro {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 30px;
+        }
+
+        .archive-intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .archive-intro p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ── ISSUE GRID ── */
+        .issues-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .issue-card {
+            background: var(--card-bg);
+            border: 1px solid #c0c0ba;
+            border-top: 4px solid var(--accent-red);
+            padding: 28px 28px 22px 28px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .issue-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+        }
+
+        .issue-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .issue-number {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: var(--ink-black);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 2px;
+        }
+
+        .issue-date {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            color: #777;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .issue-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            color: var(--ink-black);
+        }
+
+        .story-list {
+            list-style: none;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .story-list li {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.85rem;
+            color: #444;
+            padding: 5px 0;
+            border-bottom: 1px dotted #ddd;
+            line-height: 1.4;
+            display: flex;
+            gap: 8px;
+        }
+
+        .story-list li:last-child { border-bottom: none; }
+
+        .story-list li::before {
+            content: "→";
+            color: var(--accent-red);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 9px 18px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.15s ease;
+            border-radius: 2px;
+        }
+
+        .btn:hover { opacity: 0.82; }
+
+        .btn-primary {
+            background: var(--accent-red);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--ink-black);
+            border: 2px solid var(--border-gray);
+        }
+
+        /* ── FOOTER ── */
+        site-footer {
+            display: block;
+        }
+
+        .site-footer {
+            background: var(--ink-black);
+            color: #aaa;
+            text-align: center;
+            padding: 30px 20px;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .site-footer a {
+            color: #ccc;
+            text-decoration: none;
+            border-bottom: 1px solid #555;
+        }
+
+        .site-footer a:hover { color: #fff; }
+
+        .site-footer .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ── LATEST BADGE ── */
+        .latest-badge {
+            display: inline-block;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #1a4a1a;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 750px) {
+            .issues-grid { grid-template-columns: 1fr; }
+            .site-sub-header { justify-content: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="site-sub-header">
+            <span>Digital Forensics Newsletter</span>
+            <span>Published Every Tuesday</span>
+            <span>Issue Archive</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="archive-intro">
+            <h2>All Issues</h2>
+            <p>A weekly briefing on digital forensics news, threat intelligence, historic case studies, and the tools shaping modern investigations. Missed an issue? Read it online or download the PDF below.</p>
+        </div>
+
+        <div class="issues-grid">
+
+            <!-- ISSUE 04 -->
+            <div class="issue-card">
+                <div class="issue-meta">
+                    <span class="issue-number">Issue 04 <span class="latest-badge">Latest</span></span>
+                    <span class="issue-date">February 24, 2026</span>
+                </div>
+                <h3>Phobos Falls &amp; The Forgotten Attack Surface</h3>
+                <ul class="story-list">
+                    <li>Polish arrest exposes ransomware's credential economy</li>
+                    <li>China-linked group hides in backup infrastructure for 18 months</li>
+                    <li>CVE-2026-21519: Windows DWM privilege escalation (actively exploited)</li>
+                    <li>PromptSpy: First Android malware to use Google Gemini AI at runtime</li>
+                    <li>Historic: Operation Aurora + Operation Pacifier</li>
+                </ul>
+                <div class="card-actions">
+                    <a class="btn btn-primary" href="issues/Newsletter_022426.html" target="_blank">Read Online</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_022426.pdf" download>Download PDF</a>
+                </div>
+            </div>
+
+            <!-- ISSUE 03 -->
+            <div class="issue-card">
+                <div class="issue-meta">
+                    <span class="issue-number">Issue 03</span>
+                    <span class="issue-date">February 17, 2026</span>
+                </div>
+                <h3>Velociraptor Weaponized &amp; Deepfakes vs. the Courts</h3>
+                <ul class="story-list">
+                    <li>Attackers deploy DFIR's own framework as a RAT</li>
+                    <li>Hany Farid warns of a coming admissibility crisis</li>
+                    <li>CVE-2026-21510: Windows Shell SmartScreen bypass</li>
+                    <li>Reynolds Ransomware ships with BYOVD defense-killer</li>
+                    <li>Historic: Golden State Killer + Colonial Pipeline Bitcoin seizure</li>
+                </ul>
+                <div class="card-actions">
+                    <a class="btn btn-primary" href="issues/Newsletter_021726.html" target="_blank">Read Online</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_021726.pdf" download>Download PDF</a>
+                </div>
+            </div>
+
+            <!-- ISSUE 02 -->
+            <div class="issue-card">
+                <div class="issue-meta">
+                    <span class="issue-number">Issue 02</span>
+                    <span class="issue-date">February 3, 2026</span>
+                </div>
+                <h3>The Lynx in the Network: Anatomy of an RDP Attack</h3>
+                <ul class="story-list">
+                    <li>Lynx Ransomware's predatory RDP infiltration tactics</li>
+                    <li>How Lynx uses LoLBins to blind modern EDR</li>
+                    <li>CVE-2026-4411: RDS arbitrary file execution (actively exploited)</li>
+                    <li>Historic: US v. Brown biometric ruling + Encrypted RAM forensics</li>
+                </ul>
+                <div class="card-actions">
+                    <a class="btn btn-primary" href="issues/Newsletter_020326.html" target="_blank">Read Online</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_020326.pdf" download>Download PDF</a>
+                </div>
+            </div>
+
+            <!-- ISSUE 01 -->
+            <div class="issue-card">
+                <div class="issue-meta">
+                    <span class="issue-number">Issue 01</span>
+                    <span class="issue-date">January 27, 2026</span>
+                </div>
+                <h3>Compelled Biometrics &amp; the AI Provenance Era</h3>
+                <ul class="story-list">
+                    <li>D.C. Circuit debates forced biometric device unlocking</li>
+                    <li>New AI media transparency laws take effect in NY &amp; CA</li>
+                    <li>CVE-2026-20944: Microsoft Office RCE via malformed .docx</li>
+                    <li>Historic: BTK Metadata Incident + Ross Ulbricht laptop seizure</li>
+                </ul>
+                <div class="card-actions">
+                    <a class="btn btn-primary" href="issues/Newsletter_012726.html" target="_blank">Read Online</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_012726.pdf" download>Download PDF</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-title">The Forensics Way</div>
+        <p>A weekly digital forensics briefing. New issues every Tuesday.</p>
+        <br>
+        <p>© 2026 The Forensics Way &nbsp;·&nbsp; <a href="https://www.linkedin.com" target="_blank">Follow on LinkedIn</a></p>
+    </footer>
+
+</body>
+</html>
