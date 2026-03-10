@@ -100,6 +100,32 @@
             margin-bottom: 10px !important;
         }
 
+        .star-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--ink-black);
+            color: #fff;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 3px;
+            transition: background 0.2s ease;
+        }
+
+        .star-btn:hover { background: #9e1b1b; }
+
+        .star-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #f0c040;
+            flex-shrink: 0;
+        }
+
         /* ── ISSUE GRID ── */
         .issues-grid {
             display: grid;
@@ -288,12 +314,12 @@
             <p>A weekly briefing on digital forensics news, threat intelligence, historic case studies, and the tools shaping modern investigations. Missed an issue? Read it online or download the PDF below.</p>
             <div class="star-cta">
                 <p class="star-label">Find this useful? Give the project a star on GitHub 👇</p>
-                <a class="github-button"
-                   href="https://github.com/Prof-GP/TFW-Newsletters"
-                   data-icon="octicon-star"
-                   data-size="large"
-                   data-show-count="true"
-                   aria-label="Star Prof-GP/TFW-Newsletters on GitHub">Star</a>
+                <a class="star-btn" href="https://github.com/Prof-GP/TFW-Newsletters" target="_blank">
+                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+                    </svg>
+                    Star on GitHub
+                </a>
             </div>
         </div>
 
@@ -427,17 +453,15 @@
         <div class="footer-title">The Forensics Way</div>
         <p>A weekly digital forensics briefing. New issues every Tuesday.</p>
         <br>
-        <a class="github-button"
-           href="https://github.com/Prof-GP/TFW-Newsletters"
-           data-icon="octicon-star"
-           data-size="large"
-           data-show-count="true"
-           aria-label="Star Prof-GP/TFW-Newsletters on GitHub">Star</a>
-        <br><br>
+        <a class="star-btn" href="https://github.com/Prof-GP/TFW-Newsletters" target="_blank" style="display:inline-flex; margin-bottom: 16px;">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:#f0c040;margin-right:8px;flex-shrink:0;">
+                <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+            </svg>
+            Star on GitHub
+        </a>
+        <br>
         <p>© 2026 The Forensics Way &nbsp;·&nbsp; <a href="https://www.linkedin.com" target="_blank">Follow on LinkedIn</a></p>
     </footer>
-
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 </body>
 </html>
