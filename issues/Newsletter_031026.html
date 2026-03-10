@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forensics Way — Special Edition — March 10, 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+        :root {
+            --newspaper-off-white: #fdfdfb;
+            --ink-black: #1a1a1a;
+            --accent-red: #9e1b1b;
+            --border-gray: #333;
+        }
+
+        body {
+            background-color: #e5e5e1;
+            font-family: 'Libre Baskerville', serif;
+            color: var(--ink-black);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        /* ── SHARED PAGE SHELL ── */
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            background-color: var(--newspaper-off-white);
+            padding: 50px 50px 20px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #c0c0ba;
+            min-height: 1100px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        /* ── SPECIAL EDITION PAGE — no min-height constraint ── */
+        .page-special {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            background-color: var(--newspaper-off-white);
+            padding: 0 0 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #c0c0ba;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* ── HEADERS ── */
+        header {
+            text-align: center;
+            border-bottom: 5px solid var(--border-gray);
+            margin-bottom: 25px;
+        }
+
+        .masthead {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            padding-bottom: 10px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 2px solid var(--border-gray);
+            border-bottom: 2px solid var(--border-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── SPECIAL EDITION BANNER ── */
+        .special-banner {
+            background: var(--ink-black);
+            color: #fff;
+            text-align: center;
+            padding: 14px 50px;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 4px solid var(--accent-red);
+        }
+
+        .special-banner span {
+            color: var(--accent-red);
+            margin: 0 12px;
+        }
+
+        /* ── SPECIAL SECTION HEADER ── */
+        .conflict-header {
+            background: var(--ink-black);
+            color: #fff;
+            padding: 30px 50px 20px 50px;
+        }
+
+        .conflict-header .conflict-kicker {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .conflict-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin: 0 0 8px 0;
+            line-height: 1.05;
+            letter-spacing: -0.5px;
+        }
+
+        .conflict-header p {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.92rem;
+            color: #bbb;
+            margin: 0;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        /* ── CONFLICT ZONE STORY GRID ── */
+        .conflict-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            padding: 0 50px 40px 50px;
+            background: var(--newspaper-off-white);
+        }
+
+        .conflict-story {
+            padding: 28px 25px 28px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .conflict-story:nth-child(odd) {
+            border-right: 1px solid #ddd;
+            padding-right: 35px;
+        }
+
+        .conflict-story:nth-child(even) {
+            padding-left: 35px;
+            padding-right: 0;
+        }
+
+        .conflict-story:nth-child(3),
+        .conflict-story:nth-child(4) {
+            border-bottom: none;
+        }
+
+        .conflict-badge {
+            display: inline-block;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 3px 10px;
+            border-radius: 2px;
+            margin-bottom: 10px;
+            background: var(--accent-red);
+            color: #fff;
+        }
+
+        .conflict-badge.badge-intel  { background: #1a2a4a; }
+        .conflict-badge.badge-analysis { background: #2a1a1a; }
+        .conflict-badge.badge-advisory { background: #1a3a1a; }
+
+        .conflict-story h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--ink-black);
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .conflict-story p {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: #333;
+            margin: 0;
+            text-align: justify;
+        }
+
+        /* ── STANDARD CONTENT ── */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: left;
+            border-bottom: 3px solid var(--border-gray);
+            margin: 0 0 25px 0;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        article { margin-bottom: 35px; }
+        h2 { font-size: 1.6rem; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.02em; }
+        h3 { font-family: 'Source Sans Pro', sans-serif; font-size: 0.85rem; color: var(--accent-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        p { font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 18px; word-spacing: -0.05em; }
+
+        .threat-intel-column { background-color: #f4f4f0; padding: 25px; border-left: 1px solid #ddd; }
+        .cve-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #d1d1ca; }
+        .cve-tag { background: var(--accent-red); color: white; padding: 3px 10px; font-size: 0.75rem; font-weight: bold; font-family: 'Source Sans Pro', sans-serif; border-radius: 2px; display: inline-block; margin-bottom: 8px; }
+
+        /* ── CASE STUDIES ── */
+        .case-studies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 10px; }
+        .case-card { padding: 20px; border: 1px solid #eee; background: #fff; }
+
+        /* ── TOOLS OF THE TRADE ── */
+        .tools-section { margin-top: 40px; }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .tool-card {
+            padding: 18px;
+            border: 1px solid #ddd;
+            background: #f9f9f7;
+            border-top: 3px solid var(--accent-red);
+        }
+
+        .tool-badge {
+            display: inline-block;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-bottom: 10px;
+        }
+
+        .badge-opensource { background: #1a4a1a; color: #fff; }
+        .badge-commercial { background: #1a2a4a; color: #fff; }
+        .badge-utility    { background: #4a3a1a; color: #fff; }
+
+        .tool-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            line-height: 1.2;
+            color: var(--ink-black);
+        }
+
+        .tool-version {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .tool-card p {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+            text-align: left;
+            word-spacing: normal;
+        }
+
+        /* ── FOOTER ── */
+        footer.comprehensive-footer {
+            background: var(--newspaper-off-white);
+            color: var(--ink-black);
+            padding: 35px 0;
+            margin: 40px 0 0 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            border-top: 8px double var(--border-gray);
+        }
+
+        .footer-section h4 {
+            color: var(--ink-black);
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-red);
+            display: inline-block;
+        }
+
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .footer-entry { border-left: 3px solid var(--accent-red); padding-left: 15px; margin-bottom: 10px; }
+        .footer-entry strong { display: block; font-size: 0.9rem; color: var(--accent-red); margin-bottom: 2px; text-transform: uppercase; }
+        .footer-entry span { font-size: 0.75rem; color: #666; font-weight: bold; text-transform: uppercase; }
+        .footer-entry p { font-size: 0.85rem; line-height: 1.4; color: #333; text-align: left; margin: 5px 0 0 0; }
+
+        .page-number {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+            padding: 20px 0;
+        }
+
+        .page-number-special {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+            padding: 10px 50px 20px 50px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content, .case-studies-grid, .tools-grid,
+            footer.comprehensive-footer, .conflict-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════ PAGE 1 ══════════════════════ -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="special-banner">
+            ⚡ Special Edition <span>|</span> Cyber War Report <span>|</span> U.S.–Israel–Iran Conflict
+        </div>
+        <div class="sub-header">
+            <span>Issue 06</span>
+            <span>Forensics Awareness This Week</span>
+            <span>Tuesday, March 10, 2026</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="column">
+            <div class="section-title">Front Page</div>
+
+            <article>
+                <h3>State-Sponsored Intrusion</h3>
+                <h2>Seedworm Strikes the Homeland: Iranian APT Infiltrates US Bank, Airport, and Defense Supply Chain</h2>
+                <p>Symantec's threat intelligence team confirmed this week that <strong>Seedworm</strong> — an Iranian state-sponsored APT also tracked as MuddyWater — has successfully infiltrated networks belonging to a US financial institution, a major airport operator, and multiple defense supply chain firms. The campaign leverages spearphishing and living-off-the-land techniques to avoid detection, making behavioral forensics the only reliable detection path.</p>
+                <p>For forensic examiners, Seedworm intrusions present a compounded challenge: the group deliberately times operations to overlap with hacktivist noise campaigns, using the influx of false-positive alerts to mask lateral movement. Investigators responding to Seedworm incidents must segregate threat streams carefully — hacktivist DDoS activity hitting the same target is frequently a deliberate smoke screen.</p>
+            </article>
+
+            <article style="border-top: 1px solid #ddd; padding-top: 25px;">
+                <h3>Espionage Under Cover</h3>
+                <h2>WezRat Resurges: APT42 Harvests Credentials While the World Watches the Hacktivists</h2>
+                <p>While 60+ hacktivist groups dominate headlines with defacement campaigns and DDoS attacks, <strong>APT42</strong> — Iran's elite intelligence cyber unit — has quietly resumed <strong>WezRat</strong> infostealer operations targeting media organizations, academic institutions, and defense contractors. WezRat establishes persistence through legitimate cloud services, harvesting credentials and session tokens with minimal system footprint.</p>
+                <p>The pattern is deliberate: APT42 uses the operational cover of loud hacktivist activity to conduct methodical, long-term espionage. Examiners should treat any concurrent hacktivist activity on a target network as a potential distraction operation and prioritize hunting for subtle persistence mechanisms in cloud-connected environments alongside the more obvious indicators.</p>
+            </article>
+        </div>
+
+        <div class="column threat-intel-column">
+            <h2 style="font-family: 'Playfair Display'; border-bottom: 2px solid #000; padding-bottom: 10px;">Threat Bulletin</h2>
+
+            <div class="cve-item">
+                <span class="cve-tag">CRITICAL</span><br>
+                <strong>CVE-2026-0145</strong>
+                <p style="font-size: 0.9rem;">Palo Alto PAN-OS GlobalProtect Authentication Bypass. Allows unauthenticated remote access to VPN infrastructure — a preferred initial-access vector for Iranian APT groups including Seedworm and APT42. Emergency patching ordered across federal agencies. <i>Forensic Note:</i> Audit GlobalProtect session logs for anomalous authentication patterns predating the alert.</p>
+            </div>
+
+            <div class="cve-item">
+                <span class="cve-tag">ACTIVE EXPLOIT</span><br>
+                <strong>CVE-2026-1834</strong>
+                <p style="font-size: 0.9rem;">Fortinet FortiGate SSL-VPN Remote Code Execution. Actively weaponized by Iran-aligned actors as a secondary access mechanism when PAN-OS targets are patched. <i>Forensic Note:</i> Look for unauthorized SSL-VPN session initiations and anomalous HTTPD child processes in FortiGate logs.</p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #1a1a1a;">Malware Spotlight</h3>
+            <div class="cve-item" style="border-bottom: none;">
+                <strong style="color: var(--accent-red);">BaqiyatLock Wiper</strong>
+                <p style="font-size: 0.9rem;">Iran-aligned destructive malware deployed simultaneously as a ransomware facade and true wiper — no decryption key is ever issued. Forensic recovery is largely impossible post-execution. Targets the Master Boot Record and overwrites file headers. <i>Forensic Note:</i> Prioritize volatile memory and network flow capture the moment BaqiyatLock is suspected — disk artifacts will not survive.</p>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">— Page 1 —</div>
+</div>
+
+<!-- ══════════════════════ SPECIAL EDITION INSERT ══════════════════════ -->
+<div class="page-special">
+
+    <div class="conflict-header">
+        <span class="conflict-kicker">⚡ Special Edition — Conflict Zone Report — March 10, 2026</span>
+        <h2>Cyber War: The Digital Front in the U.S.–Israel–Iran Conflict</h2>
+        <p>On February 28, 2026, the United States and Israel launched Operations Epic Fury and Roaring Lion against Iranian military infrastructure. Within hours, the conflict expanded into full-spectrum hybrid warfare. The following four briefings examine the cyber and digital forensics dimensions of an ongoing and rapidly evolving conflict — and what they mean for defenders right now.</p>
+    </div>
+
+    <div class="conflict-grid">
+
+        <div class="conflict-story">
+            <span class="conflict-badge">Breaking</span>
+            <h3>Operation Epic Fury and the 4-Hour Digital Blackout</h3>
+            <p>Within hours of the February 28 strikes, Iran's available internet connectivity collapsed to between <strong>1–4% of normal capacity</strong> — a near-total blackout assessed to be the result of both physical infrastructure damage and deliberate offensive cyber operations targeting routing infrastructure. The connectivity loss created a double-edged forensic consequence: while it initially degraded Iran's ability to coordinate sophisticated retaliatory attacks, it also severed real-time logging and telemetry from networks inside the country, creating significant gaps in the evidentiary record. Investigators working attribution cases tied to this period must account for the blackout window when reconstructing attacker timelines — network artifacts that would normally provide corroborating evidence may simply not exist for the February 28 – March 2 window.</p>
+        </div>
+
+        <div class="conflict-story">
+            <span class="conflict-badge badge-intel">Intelligence</span>
+            <h3>60 Groups, One Room: Inside Iran's Electronic Operations Room</h3>
+            <p>On February 28, Iran's Ministry of Intelligence and Security (MOIS) formally activated what threat analysts are calling the <strong>"Electronic Operations Room"</strong> — a coordinated command structure bringing together 60+ state-aligned and hacktivist groups under unified operational direction. Key actors include Handala Hack (MOIS-linked), Cyber Islamic Resistance, Dark Storm Team, Sicarii ransomware operators, and pro-Russian hacktivist collectives. The formation of this room represents a significant evolution in Iranian cyber doctrine: for the first time, the MOIS is openly coordinating criminal, hacktivist, and state APT assets under a single operational umbrella. For forensic investigators, this creates a deliberate attribution maze — attacks may appear to originate from independent hacktivist groups while actually executing state intelligence directives, with persona fragmentation designed specifically to frustrate forensic attribution.</p>
+        </div>
+
+        <div class="conflict-story">
+            <span class="conflict-badge badge-analysis">Analysis</span>
+            <h3>Wipers on the Frontline: When "Ransomware" Becomes Permanent Erasure</h3>
+            <p><strong>BaqiyatLock</strong> and <strong>Sicarii</strong> — the primary destructive tools deployed by Iran-aligned actors in this conflict — present a forensic crisis unlike standard ransomware: <em>no decryption is ever possible</em>. Both tools present as ransomware to confuse the initial triage, displaying ransom notes and wallet addresses, but their actual function is immediate, irreversible data destruction targeting Master Boot Records, partition tables, and file system headers. By the time an organization recognizes the ransom demand as a facade, the evidence is already gone. Forensic examiners responding to suspected wiper incidents must immediately pivot to volatile evidence — RAM dumps, network flow captures, and out-of-band logging — before touching the disk. Post-execution disk forensics on BaqiyatLock targets typically yield little beyond confirming the method of destruction. The only viable forensic record lives in what was preserved before detonation.</p>
+        </div>
+
+        <div class="conflict-story">
+            <span class="conflict-badge badge-advisory">Advisory</span>
+            <h3>CISA at 38%: America's Cyber Shield is Critically Understaffed</h3>
+            <p>As Iran-aligned actors execute their most coordinated cyber campaign since 2021, CISA — the United States' primary civilian cyber defense agency — is operating at just <strong>38% staffing capacity</strong> due to a federal funding lapse. The agency's public-facing threat advisories have not been actively updated since February 17, 2026. CISA's website itself carries a notice acknowledging the lapse. The consequences for private-sector organizations are significant: the agency's usual role of rapid threat indicator sharing, joint advisories, and emergency coordination is severely degraded precisely when it is needed most. Forensic teams and security operations centers should not assume federal support will arrive in the standard timeframe. Organizations must increase their reliance on private threat intelligence feeds, sector-specific ISACs, and peer information sharing immediately. The gap in federal coordination is itself a vulnerability that Iran-aligned threat actors are likely aware of and actively exploiting.</p>
+        </div>
+
+    </div>
+
+    <div class="page-number-special">— Special Edition Insert —</div>
+</div>
+
+<!-- ══════════════════════ PAGE 2 ══════════════════════ -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Historical Archives</span>
+            <span>History of Digital Investigation</span>
+            <span>Tuesday, March 10, 2026</span>
+        </div>
+    </header>
+
+    <div style="flex-grow: 1;">
+
+        <!-- CASE STUDIES — Iran-themed rotation -->
+        <div class="section-title">Case Studies: Historical Grid</div>
+        <div class="case-studies-grid">
+
+            <div class="case-card">
+                <h3>Stuxnet / Operation Olympic Games (2010)</h3>
+                <h2>The First Cyberweapon Deployed Against Iran</h2>
+                <p>Jointly developed by the NSA and Israel's Unit 8200, Stuxnet was the world's first known cyberweapon — a precision instrument designed to destroy Iranian centrifuges at the Natanz nuclear facility while reporting normal status to operators. Its forensic discovery by Kaspersky and Symantec researchers established the foundational methodology for ICS/SCADA malware analysis that defenders apply to Iranian wiper incidents today.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>NotPetya Wiper Attack (2017)</h3>
+                <h2>The $10 Billion Lesson in Destructive Malware</h2>
+                <p>Disguised as ransomware, Russia's NotPetya was a pure wiper that caused an estimated $10 billion in global damages — the most destructive cyberattack in history. Forensic analysts at ESET and Kaspersky determined that the ransom facade was deliberate misdirection, a lesson that directly informs how investigators must approach today's BaqiyatLock and Sicarii deployments in the Iran conflict.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>The Kevin Mitnick Manhunt (1995)</h3>
+                <h2>A Digital Trail Through Stolen Networks</h2>
+                <p>The world's most wanted hacker was caught when security expert Tsutomu Shimomura traced Mitnick's intrusions through cellular network logs and TCP/IP sequence number fingerprinting. Shimomura rebuilt the attack timeline in real time, pioneering techniques in network forensics and live digital pursuit foundational to modern incident response.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Sony Pictures Hack (2014)</h3>
+                <h2>When Attribution Became a Geopolitical Act</h2>
+                <p>The FBI attributed the catastrophic Sony Pictures breach to North Korea's Lazarus Group through malware code analysis, linguistic pattern matching, and infrastructure correlation. It was the first time a nation-state cyberattack produced official government sanctions — establishing digital attribution as an instrument of foreign policy.</p>
+            </div>
+
+        </div>
+
+        <!-- TOOLS OF THE TRADE -->
+        <div class="tools-section">
+            <div class="section-title">Tools of the Trade</div>
+            <div class="tools-grid">
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-opensource">Open Source</span>
+                    <h4>MISP</h4>
+                    <span class="tool-version">Malware Info Sharing Platform</span>
+                    <p>The industry standard for structured threat intelligence sharing. During active conflicts, MISP instances allow DFIR teams to rapidly share and consume Iran-conflict IoCs — IP ranges, file hashes, C2 infrastructure — across organizations and ISACs in real time.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-opensource">Open Source</span>
+                    <h4>Arkime</h4>
+                    <span class="tool-version">Full-Packet Capture &amp; Analysis</span>
+                    <p>Full-packet capture and indexed search at scale. Essential for hunting APT lateral movement that leaves no host-based artifacts. Arkime's session reconstruction capability is particularly valuable for tracing WezRat's cloud-channel exfiltration paths through legitimate service traffic.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-opensource">Open Source</span>
+                    <h4>Volatility 3</h4>
+                    <span class="tool-version">Memory Forensics Framework</span>
+                    <p>The premier open-source memory forensics framework. Against wiper malware like BaqiyatLock — which destroys disk evidence on execution — RAM acquisition and Volatility 3 analysis may be the only path to reconstructing attacker actions, process trees, and injected payloads.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-commercial">Commercial</span>
+                    <h4>Recorded Future</h4>
+                    <span class="tool-version">Threat Intelligence Platform</span>
+                    <p>Provides real-time, AI-aggregated threat intelligence with specific coverage of Iranian APT groups, hacktivist personas, and conflict-driven infrastructure. During the current escalation, Recorded Future's Iran-focused intel modules are providing the fastest updated IoC feeds available to enterprise defenders.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="comprehensive-footer">
+        <div class="footer-section">
+            <h4>Priority CVE Advisories</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2026-20127 (Cisco)</strong>
+                    <p>Cisco Catalyst SD-WAN remote root exploitation. NSA joint alert confirms active use. <i>Forensic Note:</i> Diff running configs against known-good baselines and audit control-plane logs for unauthorized changes.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2026-25108 (FileZen)</strong>
+                    <p>FileZen command injection under active exploit, CISA emergency mitigations ordered. <i>Forensic Note:</i> FileZen's file-monitoring logs may be the primary evidence source for scoping exfiltration timelines.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Recent Malware Watch</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive: Mar 3, 2026</span>
+                    <strong>"Sandworm_Mode" NPM</strong>
+                    <p>Typosquatted NPM supply-chain packages harvesting CI/CD secrets and poisoning AI coding assistants via rogue MCP servers. Targets developer environments directly.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive: Mar 3, 2026</span>
+                    <strong>RESURGE (Ivanti)</strong>
+                    <p>Persistent malware on Ivanti Connect Secure appliances operating beyond EDR coverage. CISA issued fresh IoCs. Requires appliance-specific acquisition and network-side flow analysis.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="page-number">— Page 2 —</div>
+</div>
+
+</body>
+</html>
