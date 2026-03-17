@@ -225,15 +225,15 @@
             <article>
                 <h3>Insider Threat</h3>
                 <h2>The Trusted Responder: US Prosecutors Allege IR Consultant Aided BlackCat Ransomware Actors</h2>
-                <p>In one of the most disturbing insider threat cases in recent DFIR history, US prosecutors have alleged that a licensed incident response consultant deliberately assisted <strong>BlackCat/ALPHV ransomware operators</strong> during live attack negotiations and intrusion operations — converting a trusted remediation role into an active criminal partnership. The consultant reportedly exploited privileged network access granted during incident response engagements to facilitate attacker persistence and hamper victim recovery.</p>
-                <p>The case carries profound implications for the entire IR industry. Vendor vetting, privileged access governance, and independent verification of remediation steps are no longer optional diligence — they are evidentiary necessities. Forensic examiners responding to ransomware incidents should now treat all third-party IR consultants as potential privileged-access risks and document every action taken under external access credentials.</p>
+                <p>US prosecutors have alleged that a licensed incident response consultant deliberately assisted <strong>BlackCat/ALPHV ransomware operators</strong> during live engagements — exploiting privileged network access to facilitate attacker persistence and hamper victim recovery. It is one of the most disturbing insider threat cases in DFIR history.</p>
+                <p>The implications are industry-wide. Vendor vetting, privileged access governance, and independent remediation verification are now evidentiary necessities. Forensic examiners should document every action taken under external consultant credentials and treat all third-party IR access as a potential privileged-access risk.</p>
             </article>
 
             <article style="border-top: 1px solid #ddd; padding-top: 25px;">
                 <h3>Living-Off-the-Land Attack</h3>
                 <h2>Stryker Breach: Attackers Abuse Microsoft Intune to Disrupt Medical Device Supply Chain</h2>
-                <p>A sophisticated intrusion at <strong>Stryker</strong>, one of the world's largest medical device manufacturers, disrupted manufacturing and shipping operations after attackers abused <strong>Microsoft Intune</strong> and other native management tools rather than deploying conventional malware. By operating entirely within legitimate IT management infrastructure, the threat actors evaded every malware-centric control in the environment — a textbook living-off-the-land execution.</p>
-                <p>The forensic challenge presented by Intune-based attacks is severe: because no malicious binaries touch disk, traditional IOC-based detection is blind. Investigators must reconstruct attacker actions from Intune audit logs, Azure AD sign-in records, and device compliance policy change histories. The Stryker case is an urgent reminder that management plane forensics is now a core IR competency, not an edge case.</p>
+                <p>Attackers disrupted manufacturing at <strong>Stryker</strong>, one of the world's largest medical device manufacturers, by abusing <strong>Microsoft Intune</strong> and native management tools rather than deploying malware — evading every malware-centric control in the environment. A textbook living-off-the-land execution with no malicious binaries on disk.</p>
+                <p>Investigators must reconstruct attacker actions entirely from Intune audit logs, Azure AD sign-in records, and device compliance policy change histories. The Stryker case confirms that management-plane forensics is now a core IR competency, and tools like DeepBlueCLI are increasingly essential for hunting these artifact chains.</p>
             </article>
         </div>
 
@@ -243,19 +243,19 @@
             <div class="cve-item">
                 <span class="cve-tag">ACTIVE EXPLOIT</span><br>
                 <strong>CVE-2026-3910</strong>
-                <p style="font-size: 0.9rem;">Chromium V8 Engine — Type Confusion vulnerability enabling remote code execution via malicious web content. Actively exploited in the wild and added to CISA's KEV catalog March 13. Emergency Chrome 146 patch released. <i>Forensic Note:</i> Preserve browser profiles and V8 crash telemetry; exploitation leaves renderer process anomalies in crash logs.</p>
+                <p style="font-size: 0.9rem;">Chromium V8 Engine — Type Confusion RCE via malicious web content. Added to CISA KEV March 13; emergency Chrome 146 patch released. <i>Forensic Note:</i> Preserve browser profiles and V8 crash telemetry; exploitation leaves renderer process anomalies in crash logs.</p>
             </div>
 
             <div class="cve-item">
                 <span class="cve-tag">CRITICAL</span><br>
                 <strong>CVE-2026-26110</strong>
-                <p style="font-size: 0.9rem;">Microsoft Office Remote Code Execution via Preview Pane. An attacker can execute code on a target machine without the victim opening a file — previewing the attachment in Explorer is sufficient. One of two zero-days in March Patch Tuesday's 84-fix release. <i>Forensic Note:</i> Check Outlook preview events in Windows telemetry alongside the standard file-open artifact chain.</p>
+                <p style="font-size: 0.9rem;">Microsoft Office RCE via Preview Pane — code executes without opening the file; previewing in Explorer is sufficient. One of two zero-days in March Patch Tuesday's 84-fix release. <i>Forensic Note:</i> Check Outlook preview events in Windows telemetry alongside the standard file-open artifact chain.</p>
             </div>
 
             <h3 style="margin-top: 30px; color: #1a1a1a;">Malware Spotlight</h3>
             <div class="cve-item" style="border-bottom: none;">
                 <strong style="color: var(--accent-red);">Avrecon Botnet (SocksEscort)</strong>
-                <p style="font-size: 0.9rem;">US and European authorities dismantled the SocksEscort proxy-for-hire service powered by the Avrecon botnet — 360,000 compromised routers recruited since 2020. Used extensively to launder ransomware C2 traffic and fraud operations. <i>Forensic Note:</i> Router compromise leaves minimal on-device artifacts; hunt via outbound connection anomalies and firmware integrity checks.</p>
+                <p style="font-size: 0.9rem;">US and European authorities dismantled the SocksEscort proxy-for-hire network — 360,000 compromised routers recruited since 2020 to launder ransomware C2 traffic. <i>Forensic Note:</i> Minimal on-device artifacts; hunt via outbound connection anomalies and firmware integrity checks.</p>
             </div>
         </div>
     </div>
