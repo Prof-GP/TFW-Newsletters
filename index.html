@@ -61,7 +61,7 @@
 
         /* ── MAIN LAYOUT ── */
         main {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 50px 20px 80px;
         }
@@ -126,103 +126,98 @@
             flex-shrink: 0;
         }
 
-        /* ── ISSUE GRID ── */
-        .issues-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+        /* ── SECTION LABEL ── */
+        .section-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--border-gray);
+            padding-bottom: 8px;
+            margin-bottom: 28px;
         }
 
-        .issue-card {
+        /* ── FEATURED GRID (last 4 issues, 4-across) ── */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
             background: var(--card-bg);
             border: 1px solid #c0c0ba;
             border-top: 4px solid var(--accent-red);
-            padding: 28px 28px 22px 28px;
+            padding: 22px 20px 18px;
             box-shadow: 0 4px 14px rgba(0,0,0,0.07);
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.2s ease;
         }
 
-        .issue-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
-        }
+        .feature-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.13); }
 
-        .issue-meta {
+        .feature-card .issue-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .issue-number {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: var(--ink-black);
-            color: #fff;
-            padding: 3px 10px;
-            border-radius: 2px;
-        }
-
-        .issue-date {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.8rem;
-            color: #777;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .issue-card h3 {
+        .feature-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            line-height: 1.25;
-            margin-bottom: 16px;
+            font-size: 1.05rem;
+            line-height: 1.3;
+            margin-bottom: 12px;
             color: var(--ink-black);
-        }
-
-        .story-list {
-            list-style: none;
-            margin-bottom: 22px;
             flex-grow: 1;
         }
 
-        .story-list li {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.85rem;
-            color: #444;
-            padding: 5px 0;
-            border-bottom: 1px dotted #ddd;
-            line-height: 1.4;
-            display: flex;
-            gap: 8px;
+        .feature-card .story-list {
+            list-style: none;
+            margin-bottom: 16px;
+            flex-grow: 1;
         }
 
-        .story-list li:last-child { border-bottom: none; }
+        .feature-card .story-list li {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.78rem;
+            color: #444;
+            padding: 4px 0;
+            border-bottom: 1px dotted #ddd;
+            line-height: 1.35;
+            display: flex;
+            gap: 6px;
+        }
 
-        .story-list li::before {
+        .feature-card .story-list li:last-child { border-bottom: none; }
+
+        .feature-card .story-list li::before {
             content: "→";
             color: var(--accent-red);
             font-weight: 700;
             flex-shrink: 0;
         }
 
+        /* ── BUTTONS ── */
         .card-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-top: auto;
+            flex-wrap: wrap;
         }
 
         .btn {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 9px 18px;
+            padding: 7px 14px;
             border: none;
             cursor: pointer;
             text-decoration: none;
@@ -232,23 +227,95 @@
         }
 
         .btn:hover { opacity: 0.82; }
+        .btn-primary { background: var(--accent-red); color: #fff; }
+        .btn-secondary { background: transparent; color: var(--ink-black); border: 2px solid var(--border-gray); }
 
-        .btn-primary {
-            background: var(--accent-red);
-            color: #fff;
+        /* ── ARCHIVE LIST ── */
+        .archive-section { margin-bottom: 40px; }
+
+        .archive-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
-        .btn-secondary {
-            background: transparent;
+        .archive-row {
+            display: grid;
+            grid-template-columns: auto 110px 1fr auto;
+            align-items: center;
+            gap: 20px;
+            padding: 14px 18px;
+            background: var(--card-bg);
+            border: 1px solid #c0c0ba;
+            border-top: none;
+            transition: background 0.15s ease;
+        }
+
+        .archive-row:first-child { border-top: 1px solid #c0c0ba; }
+        .archive-row:hover { background: #f5f5f2; }
+
+        .archive-row .archive-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            line-height: 1.3;
             color: var(--ink-black);
-            border: 2px solid var(--border-gray);
         }
 
-        /* ── FOOTER ── */
-        site-footer {
-            display: block;
+        .archive-row .archive-date {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.78rem;
+            color: #777;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
+        .archive-row .archive-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        /* ── SHARED BADGE ELEMENTS ── */
+        .issue-number {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: var(--ink-black);
+            color: #fff;
+            padding: 3px 9px;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+
+        .issue-date {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.78rem;
+            color: #777;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .latest-badge {
+            display: inline-block;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #1a4a1a;
+            color: #fff;
+            padding: 2px 7px;
+            border-radius: 2px;
+            margin-left: 7px;
+            vertical-align: middle;
+        }
+
+        /* ── SITE FOOTER ── */
         .site-footer {
             background: var(--ink-black);
             color: #aaa;
@@ -259,12 +326,7 @@
             letter-spacing: 0.5px;
         }
 
-        .site-footer a {
-            color: #ccc;
-            text-decoration: none;
-            border-bottom: 1px solid #555;
-        }
-
+        .site-footer a { color: #ccc; text-decoration: none; border-bottom: 1px solid #555; }
         .site-footer a:hover { color: #fff; }
 
         .site-footer .footer-title {
@@ -275,24 +337,16 @@
             letter-spacing: 1px;
         }
 
-        /* ── LATEST BADGE ── */
-        .latest-badge {
-            display: inline-block;
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: #1a4a1a;
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 2px;
-            margin-left: 8px;
-            vertical-align: middle;
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .featured-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        @media (max-width: 750px) {
-            .issues-grid { grid-template-columns: 1fr; }
+        @media (max-width: 600px) {
+            .featured-grid { grid-template-columns: 1fr; }
+            .archive-row { grid-template-columns: auto 1fr; grid-template-rows: auto auto; gap: 8px 12px; }
+            .archive-row .archive-date { display: none; }
+            .archive-row .archive-actions { grid-column: 1 / -1; justify-content: flex-start; }
             .site-sub-header { justify-content: center; text-align: center; }
         }
     </style>
@@ -323,319 +377,207 @@
             </div>
         </div>
 
-        <div class="issues-grid">
+        <!-- ── RECENT ISSUES (4-across) ── -->
+        <div class="section-label">Recent Issues</div>
+
+        <div class="featured-grid">
 
             <!-- ISSUE 15 -->
-            <div class="issue-card">
+            <div class="feature-card">
                 <div class="issue-meta">
                     <span class="issue-number">Issue 15 <span class="latest-badge">Latest</span></span>
                     <span class="issue-date">May 12, 2026</span>
                 </div>
                 <h3>RansomHouse Breaches Trellix &amp; "Copy Fail" Creates a Forensic Blind Spot on Linux</h3>
                 <ul class="story-list">
-                    <li>Trellix source code breach — RansomHouse accesses repositories, VMware and Dell EMC infrastructure on April 17; disclosed May 7</li>
-                    <li>CVE-2026-31431 "Copy Fail" — Linux page-cache LPE leaves no on-disk trace; CISA KEV, patch deadline May 15</li>
-                    <li>CVE-2026-0300 — Palo Alto PAN-OS unauthenticated RCE, CVSS 9.3, state-sponsored CL-STA-1132 exploitation since April 9</li>
-                    <li>CVE-2026-23918 — Apache HTTP/2 double-free DoS and RCE, CVSS 8.8, fixed in 2.4.67</li>
-                    <li>BARADAI ransomware — new file-encrypting strain discovered by CYFIRMA in May 2026, no public decryptor</li>
-                    <li>Historic: Bangladesh Bank SWIFT Heist (Lazarus Group, $81M) + Ashley Madison breach (Impact Team, 37M records, no suspects)</li>
+                    <li>Trellix source code breach — RansomHouse accesses repositories and VMware/Dell EMC infrastructure</li>
+                    <li>CVE-2026-31431 "Copy Fail" — Linux page-cache LPE, no on-disk trace, CISA KEV</li>
+                    <li>CVE-2026-0300 — PAN-OS unauthenticated RCE, CVSS 9.3, state-sponsored exploitation</li>
+                    <li>BARADAI ransomware — new strain from CYFIRMA, no public decryptor</li>
                 </ul>
                 <div class="card-actions">
                     <a class="btn btn-primary" href="issues/Newsletter_051226.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_051226.pdf" download>Download PDF</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_051226.pdf" download>PDF</a>
                 </div>
             </div>
 
             <!-- ISSUE 14 -->
-            <div class="issue-card">
+            <div class="feature-card">
                 <div class="issue-meta">
                     <span class="issue-number">Issue 14</span>
                     <span class="issue-date">May 5, 2026</span>
                 </div>
                 <h3>ShinyHunters Hits 275M Canvas Users &amp; cPanel Zero-Day Wipes 40,000 Servers</h3>
                 <ul class="story-list">
-                    <li>Instructure Canvas breach — ShinyHunters exfiltrates 3.65 TB from 275M users via Salesforce misconfiguration across 9,000 schools</li>
-                    <li>CVE-2026-41940 mass-exploited — CRLF injection bypasses cPanel auth on 40,000+ servers; "Sorry" ransomware deployed at scale</li>
-                    <li>CVE-2026-41940 — cPanel/WHM authentication bypass, CVSS 9.8, active exploitation confirmed</li>
-                    <li>CVE-2026-2033 — Google Chrome V8 type confusion RCE, CVSS 8.8, CISA KEV May 2026</li>
-                    <li>"Sorry" ransomware — Go-based Linux encryptor targeting cPanel hosts, ChaCha20/RSA-2048, no public decryption tool</li>
-                    <li>Historic: Silk Road takedown (live RAM capture + Bitcoin forensics) + Careto/The Mask (7-year multi-platform APT across 31 countries)</li>
+                    <li>Instructure Canvas breach — 3.65 TB from 275M users via Salesforce misconfiguration</li>
+                    <li>CVE-2026-41940 — CRLF injection on 40,000+ cPanel servers; "Sorry" ransomware deployed</li>
+                    <li>CVE-2026-2033 — Chrome V8 type confusion RCE, CVSS 8.8, CISA KEV</li>
+                    <li>Historic: Silk Road RAM capture + Careto/The Mask 7-year APT</li>
                 </ul>
                 <div class="card-actions">
                     <a class="btn btn-primary" href="issues/Newsletter_050526.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_050526.pdf" download>Download PDF</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_050526.pdf" download>PDF</a>
                 </div>
             </div>
 
             <!-- ISSUE 13 -->
-            <div class="issue-card">
+            <div class="feature-card">
                 <div class="issue-meta">
                     <span class="issue-number">Issue 13</span>
-                    <span class="issue-date">April 28, 2026</span>
+                    <span class="issue-date">Apr 28, 2026</span>
                 </div>
                 <h3>Scattered Spider Guilty Plea &amp; UNC6692 Turns FTK Imager Against Defenders</h3>
                 <ul class="story-list">
-                    <li>Scattered Spider's 'Tylerb' pleads guilty — OSINT domain registration attribution cracks $8M SIM-swap campaign</li>
-                    <li>UNC6692 impersonates IT helpdesk via Microsoft Teams and uses FTK Imager to extract Active Directory databases</li>
-                    <li>CVE-2026-33825 — Microsoft Defender LPE added to CISA KEV April 22 with active exploitation confirmed</li>
-                    <li>CVE-2025-31324 — SAP NetWeaver Visual Composer unauthenticated RCE (CVSS 10.0), renewed exploitation campaigns</li>
-                    <li>Lotus Wiper — pure destructive malware targeting Venezuela's energy sector, no ransom, two-script wipe chain</li>
-                    <li>Historic: Target 2013 HVAC vendor breach (40M cards) + Equifax 2017 unpatched Struts, 76-day dwell, 148M records</li>
+                    <li>Scattered Spider's 'Tylerb' pleads guilty — OSINT attribution cracks $8M SIM-swap campaign</li>
+                    <li>UNC6692 uses FTK Imager via Teams impersonation to pull Active Directory databases</li>
+                    <li>CVE-2025-31324 — SAP NetWeaver unauthenticated RCE, CVSS 10.0</li>
+                    <li>Lotus Wiper — pure destructive malware, Venezuela energy sector</li>
                 </ul>
                 <div class="card-actions">
                     <a class="btn btn-primary" href="issues/Newsletter_042826.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_042826.pdf" download>Download PDF</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_042826.pdf" download>PDF</a>
                 </div>
             </div>
 
             <!-- ISSUE 12 -->
-            <div class="issue-card">
+            <div class="feature-card">
                 <div class="issue-meta">
                     <span class="issue-number">Issue 12</span>
-                    <span class="issue-date">April 21, 2026</span>
+                    <span class="issue-date">Apr 21, 2026</span>
                 </div>
                 <h3>Vercel's OAuth Breach &amp; Apache ActiveMQ Exploited at Scale</h3>
                 <ul class="story-list">
-                    <li>Context.ai OAuth token hijacking exposes Vercel's internal credential vault — three log planes required to reconstruct the timeline</li>
-                    <li>Apache ActiveMQ CVE-2026-34197 exploited across 6,000+ exposed instances, CISA KEV triggered</li>
-                    <li>CVE-2026-32201 — Microsoft SharePoint authentication bypass, RCE confirmed exploited in the wild, April Patch Tuesday</li>
-                    <li>CVE-2026-34197 — ActiveMQ OpenWire protocol RCE, CVSS 8.8, mass exploitation underway</li>
-                    <li>BASANAI — MedusaLocker-family ransomware deleting VSS before encrypting enterprise Windows environments</li>
-                    <li>Historic: RSA SecurID 2011 seed database theft + SHAMOON wiper destroys 35,000 Saudi Aramco workstations</li>
+                    <li>Context.ai OAuth token hijacking exposes Vercel's credential vault</li>
+                    <li>Apache ActiveMQ CVE-2026-34197 exploited across 6,000+ exposed instances</li>
+                    <li>CVE-2026-32201 — SharePoint authentication bypass RCE, April Patch Tuesday</li>
+                    <li>BASANAI — MedusaLocker family, VSS deletion before encryption</li>
                 </ul>
                 <div class="card-actions">
                     <a class="btn btn-primary" href="issues/Newsletter_042126.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_042126.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 11 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 11</span>
-                    <span class="issue-date">April 14, 2026</span>
-                </div>
-                <h3>APT28's 18,000-Router Network &amp; TruffleHog Turned Against the EU</h3>
-                <ul class="story-list">
-                    <li>DOJ dismantles APT28 Operation Masquerade — 18,000-router DNS hijacking network across 120 countries</li>
-                    <li>CERT-EU reconstructs Trivy breach: TruffleHog weaponized as pivot tool, 71 EU entities, 340 GB stolen</li>
-                    <li>CVE-2026-34621 — Adobe Acrobat Reader zero-day, exploited since late 2025, CISA KEV</li>
-                    <li>CVE-2012-1854 — 14-year-old Microsoft VBA DLL hijacking re-added to CISA KEV under active re-exploitation</li>
-                    <li>Omnistealer — North Korean blockchain-C2 infostealer targeting developers via fake job postings</li>
-                    <li>Historic: Yahoo FSB breach (3B accounts, 3-year dwell) + Marriott acquiring a 4-year active intrusion</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_041426.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_041426.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 10 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 10</span>
-                    <span class="issue-date">April 7, 2026</span>
-                </div>
-                <h3>Axios Poisoned &amp; the EU's 92 GB Supply Chain Wake-Up Call</h3>
-                <ul class="story-list">
-                    <li>UNC1069 (North Korea) poisons Axios npm — 183M weekly downloads, WAVESHAPER.V2 backdoor</li>
-                    <li>Trivy supply chain breach hits European Commission — 92 GB stolen from 29 EU entities</li>
-                    <li>CVE-2026-35616 — FortiClient EMS unauthenticated API bypass, CVSS 9.1, CISA KEV</li>
-                    <li>CVE-2026-3502 — TrueConf updater weaponized against Southeast Asian governments</li>
-                    <li>WAVESHAPER.V2 — self-deleting dropper defeats npm audit; lockfile diffs are the only trace</li>
-                    <li>Historic: XcodeGhost (4,000 iOS apps) + Event-Stream npm ownership transfer attack (2018)</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_040726.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_040726.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 09 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 09</span>
-                    <span class="issue-date">March 31, 2026</span>
-                </div>
-                <h3>BPFdoor Sleeper Cells &amp; CanisterWorm Goes Ransomware</h3>
-                <ul class="story-list">
-                    <li>China's Red Menshen pre-positioned BPFdoor implants inside global telecom backbone networks</li>
-                    <li>TeamPCP pivots CanisterWorm to Vect RaaS — 300 GB stolen, ransomware deployments confirmed</li>
-                    <li>CVE-2025-53521 — F5 BIG-IP APM unauthenticated RCE, CVSS 9.3, CISA KEV</li>
-                    <li>CVE-2026-21643 — FortiClient EMS pre-auth SQL injection, CVSS 9.8, 2,000+ exposed</li>
-                    <li>Infiniti Stealer — macOS ClickFix campaign via fake Cloudflare verification prompts</li>
-                    <li>Historic: Moonlight Maze (first state espionage, 1996) + APT1 / Comment Crew (2013)</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_033126.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_033126.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 08 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 08</span>
-                    <span class="issue-date">March 24, 2026</span>
-                </div>
-                <h3>36-Day Zero-Day &amp; the Blockchain-C2 Supply Chain Worm</h3>
-                <ul class="story-list">
-                    <li>Interlock ransomware exploited Cisco FMC CVE-2026-20131 for 36 days before patch</li>
-                    <li>Trivy supply chain compromise spawns CanisterWorm — ICP blockchain C2, 141 npm packages</li>
-                    <li>CVE-2026-20131 — Cisco Secure FMC unauthenticated RCE, CVSS 10.0, CISA KEV</li>
-                    <li>CVE-2026-3564 — ConnectWise ScreenConnect machine key exposure, session hijacking</li>
-                    <li>CanisterWorm: first malware to use Internet Computer blockchain for C2</li>
-                    <li>Historic: SolarWinds SUNBURST (18,000 orgs) + Colonial Pipeline (VPN = shutdown)</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_032426.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_032426.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 07 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 07</span>
-                    <span class="issue-date">March 17, 2026</span>
-                </div>
-                <h3>The Trusted Responder &amp; the LoLBins Medical Breach</h3>
-                <ul class="story-list">
-                    <li>IR consultant charged with aiding BlackCat ransomware actors during live engagements</li>
-                    <li>Stryker breached via Microsoft Intune — no malware, no disk artifacts, no alerts</li>
-                    <li>CVE-2026-3910 — Chromium V8 type confusion, actively exploited, CISA KEV</li>
-                    <li>CVE-2026-26110 — Office RCE triggers on preview pane alone, no file open needed</li>
-                    <li>Avrecon Botnet takedown — 360,000 compromised routers dismantled</li>
-                    <li>Historic: OPM breach (21.5M fingerprints) + Target POS (40M cards via HVAC vendor)</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_031726.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_031726.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 06 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 06</span>
-                    <span class="issue-date">March 10, 2026</span>
-                </div>
-                <h3>⚡ Special Edition — Cyber War: The U.S.–Israel–Iran Digital Front</h3>
-                <ul class="story-list">
-                    <li>Seedworm hits US bank, airport &amp; defense supply chain using hacktivists as cover</li>
-                    <li>APT42's WezRat infostealer resurges under the noise of 60+ active hacktivist groups</li>
-                    <li>Operation Epic Fury: Iran's internet drops to 1–4% &amp; what it means for the evidence record</li>
-                    <li>Iran's Electronic Operations Room: MOIS coordinates 60+ groups as one cyber force</li>
-                    <li>BaqiyatLock wiper: when ransomware is really permanent erasure</li>
-                    <li>CISA at 38% staffing — America's cyber shield stretched at the worst possible moment</li>
-                    <li>Historic: Stuxnet origin story + NotPetya — the wiper playbook Iran is following</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_031026.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_031026.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 05 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 05</span>
-                    <span class="issue-date">March 3, 2026</span>
-                </div>
-                <h3>RESURGE Malware &amp; the Edge Device Blind Spot</h3>
-                <ul class="story-list">
-                    <li>CISA issues fresh IoCs for RESURGE on Ivanti Connect Secure appliances</li>
-                    <li>1.15M SSNs exposed in University of Hawai'i Cancer Center ransomware hit</li>
-                    <li>CVE-2026-20127: Cisco SD-WAN remote root exploitation — NSA joint alert</li>
-                    <li>"Sandworm_Mode" NPM supply-chain targets CI/CD pipelines and AI coding tools</li>
-                    <li>Historic: Kevin Mitnick manhunt + Sony Pictures attribution</li>
-                    <li>Tools: Azul, Magnet AXIOM Cyber v9.10, KAPE, Belkasoft Evidence Center X</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_030326.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_030326.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 04 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 04</span>
-                    <span class="issue-date">February 24, 2026</span>
-                </div>
-                <h3>Phobos Falls &amp; The Forgotten Attack Surface</h3>
-                <ul class="story-list">
-                    <li>Polish arrest exposes ransomware's credential economy</li>
-                    <li>China-linked group hides in backup infrastructure for 18 months</li>
-                    <li>CVE-2026-21519: Windows DWM privilege escalation (actively exploited)</li>
-                    <li>PromptSpy: First Android malware to use Google Gemini AI at runtime</li>
-                    <li>Historic: Operation Aurora + Operation Pacifier</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_022426.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_022426.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 03 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 03</span>
-                    <span class="issue-date">February 17, 2026</span>
-                </div>
-                <h3>Velociraptor Weaponized &amp; Deepfakes vs. the Courts</h3>
-                <ul class="story-list">
-                    <li>Attackers deploy DFIR's own framework as a RAT</li>
-                    <li>Hany Farid warns of a coming admissibility crisis</li>
-                    <li>CVE-2026-21510: Windows Shell SmartScreen bypass</li>
-                    <li>Reynolds Ransomware ships with BYOVD defense-killer</li>
-                    <li>Historic: Golden State Killer + Colonial Pipeline Bitcoin seizure</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_021726.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_021726.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 02 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 02</span>
-                    <span class="issue-date">February 3, 2026</span>
-                </div>
-                <h3>The Lynx in the Network: Anatomy of an RDP Attack</h3>
-                <ul class="story-list">
-                    <li>Lynx Ransomware's predatory RDP infiltration tactics</li>
-                    <li>How Lynx uses LoLBins to blind modern EDR</li>
-                    <li>CVE-2026-4411: RDS arbitrary file execution (actively exploited)</li>
-                    <li>Historic: US v. Brown biometric ruling + Encrypted RAM forensics</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_020326.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_020326.pdf" download>Download PDF</a>
-                </div>
-            </div>
-
-            <!-- ISSUE 01 -->
-            <div class="issue-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 01</span>
-                    <span class="issue-date">January 27, 2026</span>
-                </div>
-                <h3>Compelled Biometrics &amp; the AI Provenance Era</h3>
-                <ul class="story-list">
-                    <li>D.C. Circuit debates forced biometric device unlocking</li>
-                    <li>New AI media transparency laws take effect in NY &amp; CA</li>
-                    <li>CVE-2026-20944: Microsoft Office RCE via malformed .docx</li>
-                    <li>Historic: BTK Metadata Incident + Ross Ulbricht laptop seizure</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_012726.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_012726.pdf" download>Download PDF</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_042126.pdf" download>PDF</a>
                 </div>
             </div>
 
         </div>
+
+        <!-- ── ARCHIVE LIST (older issues) ── -->
+        <div class="archive-section">
+            <div class="section-label">Previous Issues</div>
+            <div class="archive-list">
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 11</span>
+                    <span class="archive-date">April 14, 2026</span>
+                    <span class="archive-headline">APT28's 18,000-Router Network &amp; TruffleHog Turned Against the EU</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_041426.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_041426.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 10</span>
+                    <span class="archive-date">April 7, 2026</span>
+                    <span class="archive-headline">Axios Poisoned &amp; the EU's 92 GB Supply Chain Wake-Up Call</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_040726.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_040726.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 09</span>
+                    <span class="archive-date">March 31, 2026</span>
+                    <span class="archive-headline">BPFdoor Sleeper Cells &amp; CanisterWorm Goes Ransomware</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_033126.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_033126.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 08</span>
+                    <span class="archive-date">March 24, 2026</span>
+                    <span class="archive-headline">36-Day Zero-Day &amp; the Blockchain-C2 Supply Chain Worm</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_032426.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_032426.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 07</span>
+                    <span class="archive-date">March 17, 2026</span>
+                    <span class="archive-headline">The Trusted Responder &amp; the LoLBins Medical Breach</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_031726.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_031726.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 06</span>
+                    <span class="archive-date">March 10, 2026</span>
+                    <span class="archive-headline">Special Edition — Cyber War: The U.S.–Israel–Iran Digital Front</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_031026.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_031026.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 05</span>
+                    <span class="archive-date">March 3, 2026</span>
+                    <span class="archive-headline">RESURGE Malware &amp; the Edge Device Blind Spot</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_030326.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_030326.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 04</span>
+                    <span class="archive-date">Feb 24, 2026</span>
+                    <span class="archive-headline">Phobos Falls &amp; The Forgotten Attack Surface</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_022426.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_022426.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 03</span>
+                    <span class="archive-date">Feb 17, 2026</span>
+                    <span class="archive-headline">Velociraptor Weaponized &amp; Deepfakes vs. the Courts</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_021726.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_021726.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 02</span>
+                    <span class="archive-date">Feb 3, 2026</span>
+                    <span class="archive-headline">The Lynx in the Network: Anatomy of an RDP Attack</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_020326.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_020326.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 01</span>
+                    <span class="archive-date">Jan 27, 2026</span>
+                    <span class="archive-headline">Compelled Biometrics &amp; the AI Provenance Era</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_012726.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_012726.pdf" download>PDF</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
     <footer class="site-footer">
