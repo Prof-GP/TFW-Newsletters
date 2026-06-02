@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forensics Way - June 2, 2026 Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+        :root {
+            --newspaper-off-white: #fdfdfb;
+            --ink-black: #1a1a1a;
+            --accent-red: #9e1b1b;
+            --border-gray: #333;
+        }
+
+        body {
+            background-color: #e5e5e1;
+            font-family: 'Libre Baskerville', serif;
+            color: var(--ink-black);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            background-color: var(--newspaper-off-white);
+            padding: 50px 50px 20px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #c0c0ba;
+            min-height: 1100px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 5px solid var(--border-gray);
+            margin-bottom: 25px;
+        }
+
+        .masthead {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            padding-bottom: 10px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 2px solid var(--border-gray);
+            border-bottom: 2px solid var(--border-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: left;
+            border-bottom: 3px solid var(--border-gray);
+            margin: 0 0 25px 0;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        article { margin-bottom: 35px; }
+        h2 { font-size: 1.6rem; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.02em; }
+        h3 { font-family: 'Source Sans Pro', sans-serif; font-size: 0.85rem; color: var(--accent-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        p { font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 18px; word-spacing: -0.05em; }
+
+        .threat-intel-column { background-color: #f4f4f0; padding: 25px; border-left: 1px solid #ddd; }
+        .cve-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #d1d1ca; }
+        .cve-tag { background: var(--accent-red); color: white; padding: 3px 10px; font-size: 0.75rem; font-weight: bold; font-family: 'Source Sans Pro', sans-serif; border-radius: 2px; display: inline-block; margin-bottom: 8px; }
+
+        footer.comprehensive-footer {
+            background: var(--newspaper-off-white);
+            color: var(--ink-black);
+            padding: 35px 0;
+            margin: 40px 0 0 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            border-top: 8px double var(--border-gray);
+        }
+
+        .footer-section h4 {
+            color: var(--ink-black);
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-red);
+            display: inline-block;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-entry { border-left: 3px solid var(--accent-red); padding-left: 15px; margin-bottom: 10px; }
+        .footer-entry strong { display: block; font-size: 0.9rem; color: var(--accent-red); margin-bottom: 2px; text-transform: uppercase; }
+        .footer-entry span { font-size: 0.75rem; color: #666; font-weight: bold; text-transform: uppercase; }
+        .footer-entry p { font-size: 0.85rem; line-height: 1.4; color: #333; text-align: left; margin: 5px 0 0 0; }
+
+        .case-studies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 10px; }
+        .case-card { padding: 20px; border: 1px solid #eee; background: #fff; }
+
+        .tools-section { margin-top: 40px; }
+        .tools-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin-top: 10px; }
+        .tool-card { padding: 18px; border: 1px solid #ddd; background: #f9f9f7; border-top: 3px solid var(--accent-red); }
+        .tool-badge { display: inline-block; font-family: 'Source Sans Pro', sans-serif; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; margin-bottom: 10px; }
+        .badge-opensource { background: #1a4a1a; color: #fff; }
+        .badge-commercial { background: #1a2a4a; color: #fff; }
+        .badge-utility    { background: #4a3a1a; color: #fff; }
+        .tool-card h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin: 0 0 4px 0; line-height: 1.2; color: var(--ink-black); }
+        .tool-version { font-family: 'Source Sans Pro', sans-serif; font-size: 0.75rem; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: block; }
+        .tool-card p { font-size: 0.82rem; line-height: 1.5; color: #333; margin: 0; text-align: left; word-spacing: normal; }
+
+        .page-number {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 750px) {
+            .main-content, .case-studies-grid, .tools-grid,
+            footer.comprehensive-footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════ PAGE 1 ══════════════════════ -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Issue 18</span>
+            <span>Forensics Awareness This Week</span>
+            <span>Tuesday, June 2, 2026</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="column">
+            <div class="section-title">Front Page</div>
+
+            <article>
+                <h3>Network Intrusion</h3>
+                <h2>SonicWall Gen6 VPNs Under Siege: An Incomplete Patch Lets Akira Bypass MFA and Land in Under an Hour</h2>
+                <p>Defenders confirmed a coordinated campaign that began May 20 brute-forcing credentials against end-of-life SonicWall Gen6 SSL-VPN appliances and sailing past multi-factor authentication via CVE-2024-12802 — a missing MFA enforcement for the UPN login format. SonicWall rated the flaw 6.5; CISA's data publisher independently assessed it at 9.1, Critical.</p>
+                <p>The trap: the firmware fix alone does not close the hole — Gen6 owners must manually reconfigure the LDAP server, and the hardware reached end-of-life on April 16 with no further updates coming. Intrusions ran a tidy 30–60 minutes — log in, recon, test credential reuse, log out — with Akira ransomware tied to the bulk of follow-on claims. Forensic priority: preserve SSL-VPN authentication logs for UPN-format logins, snapshot LDAP configuration, and trace lateral movement from VPN-adjacent hosts before reimaging.</p>
+            </article>
+
+            <article style="border-top: 1px solid #ddd; padding-top: 25px;">
+                <h3>Data Breach</h3>
+                <h2>ShinyHunters Talks Its Way Into Carnival: A Social-Engineered Account Exposes 5.9 Million Travelers</h2>
+                <p>Carnival began notifying 5,995,277 people in late May after an attacker socially engineered an employee on April 14 into granting access to part of the cruise operator's IT estate. Using the compromised account, the intruder reached a limited portion of systems by April 22 and copied personal data before being blocked; the extortion crew ShinyHunters claimed the theft.</p>
+                <p>Exposed records vary by individual but include names, addresses, dates of birth, email addresses, phone numbers, and government-issued ID numbers — effectively a ready-made identity-theft kit. Carnival is offering 24 months of credit monitoring. Forensic priority: reconstruct the help-desk and identity-verification workflow abused for initial access, scope the compromised account's full data-access timeline, and map exposed identifiers against downstream fraud and account-takeover reports.</p>
+            </article>
+        </div>
+
+        <div class="column threat-intel-column">
+            <h2 style="font-family: 'Playfair Display'; border-bottom: 2px solid #000; padding-bottom: 10px;">Threat Bulletin</h2>
+
+            <div class="cve-item">
+                <span class="cve-tag">CRITICAL</span><br>
+                <strong>CVE-2026-48172</strong>
+                <p style="font-size: 0.9rem;">LiteSpeed User-End cPanel Plugin — incorrect privilege assignment lets any authenticated cPanel user invoke the <i>lsws.redisAble</i> function through the standard cPanel JSON API to run arbitrary scripts as root; CVSS 10.0. Exploited as a zero-day and auto-uninstalled in cPanel's May 19 emergency patch; added to CISA KEV May 27. <i>Forensic Note:</i> Hunt cPanel API logs for lsws.redisAble calls, audit root-owned scripts and cron entries created by non-root users, and confirm the plugin was upgraded to v2.4.7 or later.</p>
+            </div>
+
+            <div class="cve-item">
+                <span class="cve-tag">ACTIVE EXPLOIT</span><br>
+                <strong>CVE-2026-41091</strong>
+                <p style="font-size: 0.9rem;">Microsoft Defender — elevation-of-privilege flaw lets a local attacker who already holds limited access abuse the antimalware service to obtain SYSTEM; CVSS 7.8. Added to CISA KEV May 20 alongside a Defender denial-of-service bug (CVE-2026-45498). <i>Forensic Note:</i> Review Defender operational logs and process-creation telemetry for unexpected SYSTEM-level child processes spawned from the antimalware service — a hallmark of post-access privilege escalation.</p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #1a1a1a;">Malware Spotlight</h3>
+            <div class="cve-item" style="border-bottom: none;">
+                <strong style="color: var(--accent-red);">Kazuar — Secret Blizzard P2P Botnet</strong>
+                <p style="font-size: 0.9rem;">Russia's Secret Blizzard (Turla) has rebuilt its long-running Kazuar backdoor into a modular peer-to-peer botnet engineered for stealthy, long-term espionage against government, diplomatic, and defense targets. Three module types — Kernel, Bridge, and Worker — split the work, and a leader-election scheme keeps all but one node silent to shrink the detection surface; C2 rides HTTP, WebSockets, or Exchange Web Services, with AMSI, ETW, and WLDP bypasses built in. <i>Forensic Note:</i> Favor behavioral detection over static signatures — hunt anomalous named-pipe/IPC patterns between hosts, irregular EWS traffic, and ETW/AMSI tampering, and treat any single beaconing "leader" as one node of many.</p>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">— Page 1 —</div>
+</div>
+
+<!-- ══════════════════════ PAGE 2 ══════════════════════ -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Historical Archives</span>
+            <span>History of Digital Investigation</span>
+            <span>Tuesday, June 2, 2026</span>
+        </div>
+    </header>
+
+    <div style="flex-grow: 1;">
+
+        <!-- CASE STUDIES -->
+        <div class="section-title">Case Studies: Historical Grid</div>
+        <div class="case-studies-grid">
+
+            <div class="case-card">
+                <h3>Moonlight Maze (1996–1999)</h3>
+                <h2>The First Nation-State Hunt: Years of Stealthy Exfiltration That Seeded the Turla Lineage</h2>
+                <p>Between 1996 and 1999, U.S. investigators traced a sprawling intrusion set — later codenamed Moonlight Maze — siphoning military, NASA, and university research data to Russia-linked infrastructure through a web of compromised relay hosts. It was among the first cyber-espionage cases to demand systematic log correlation, honeypots, and cross-agency forensics, and researchers later tied its LOKI2-based tooling to the code lineage behind Turla and today's Kazuar botnet. The case proved that patient, low-and-slow state intrusions could evade detection for years — the very playbook Secret Blizzard still runs three decades later.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Operation Aurora (2009–2010)</h3>
+                <h2>An Internet Explorer Zero-Day Opens Google, Adobe, and Dozens More to Persistent Theft</h2>
+                <p>Disclosed by Google in January 2010, Operation Aurora was a China-linked campaign that weaponized an Internet Explorer zero-day (CVE-2010-0249) to breach at least 20 major companies and steal source code and intellectual property. Forensic teams reconstructed the intrusions through memory analysis, encrypted C2 traffic, and the IE use-after-free exploit chain. The case pushed the industry toward threat-intelligence sharing and made "advanced persistent threat" a board-level term — and that same CVE-2010-0249 resurfaced in CISA's May 20, 2026 KEV batch, proving old exploits never truly die.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Codecov Bash Uploader Breach (2021)</h3>
+                <h2>A Single Tampered CI Script Quietly Drains Secrets From Thousands of Build Pipelines for Two Months</h2>
+                <p>In April 2021, Codecov disclosed that an attacker had used a flaw in its Docker image build to extract credentials and modify the widely used Bash Uploader script. For roughly two months, the altered script silently exfiltrated environment variables — tokens, keys, and credentials — from customers' CI/CD pipelines to an attacker-controlled server. Investigators reconstructed the intrusion via Git history of the uploader and outbound traffic analysis, and the case became the textbook example of why every secret exposed to a build runner must be treated as compromised.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>ASUS ShadowHammer (2019)</h3>
+                <h2>Stolen Code-Signing Certificates Push a Backdoored Live Update to a Million Machines — Aimed at 600</h2>
+                <p>Kaspersky's Operation ShadowHammer revealed that attackers had trojanized the ASUS Live Update utility and signed it with legitimate, stolen ASUS code-signing certificates, distributing it through official channels to roughly one million users. The implant checked each host's MAC address against a hardcoded list of about 600 targets before fetching a second-stage payload. Forensic teams matched the malicious binaries by certificate serial and timestamp — an enduring lesson in the danger of trusted signatures and surgically targeted supply-chain delivery.</p>
+            </div>
+
+        </div>
+
+        <!-- TOOLS OF THE TRADE -->
+        <div class="tools-section">
+            <div class="section-title">Tools of the Trade</div>
+            <div class="tools-grid">
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-utility">Utility</span>
+                    <h4>Sysmon</h4>
+                    <span class="tool-version">Microsoft Sysinternals — v15.x</span>
+                    <p>Free Windows system-monitoring driver and service that logs process creation, network connections, image loads, and named-pipe activity with rich detail. The high-fidelity telemetry it produces is foundational for spotting Kazuar-style inter-process communication, persistence, and ETW/AMSI tampering that default Windows logging misses entirely.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-opensource">Open Source</span>
+                    <h4>Chainsaw</h4>
+                    <span class="tool-version">WithSecure Labs — v2.x</span>
+                    <p>Fast command-line tool for hunting threats across Windows event logs and the MFT using built-in detection logic and Sigma rules. It turns raw EVTX into ranked detections in seconds — ideal for surfacing the privilege-escalation and bypass artifacts left by Defender abuse (CVE-2026-41091) and stealthy implants.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-opensource">Open Source</span>
+                    <h4>RITA</h4>
+                    <span class="tool-version">Active Countermeasures — v5.x</span>
+                    <p>Framework that analyzes Zeek network logs to detect command-and-control beaconing, unusually long connections, and DNS tunneling through statistical scoring. Built to expose the regular, low-volume callbacks of a botnet leader node — precisely the signal Kazuar's peer-to-peer design tries to bury in normal traffic.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-commercial">Commercial</span>
+                    <h4>SentinelOne Singularity</h4>
+                    <span class="tool-version">SentinelOne — 2026 Platform</span>
+                    <p>Autonomous endpoint and XDR platform that detects and rolls back threats using on-device behavioral AI rather than static signatures. Microsoft's own Kazuar guidance — favor behavioral detection over signatures — is exactly the defensive model this class of EDR is engineered to deliver at scale.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="comprehensive-footer">
+        <div class="footer-section">
+            <h4>Priority CVE Advisories</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2025-34291 (Langflow)</strong>
+                    <p>Origin-validation error; a permissive CORS config plus a SameSite=None refresh-token cookie enables credentialed cross-origin calls to the refresh endpoint, yielding authenticated RCE; CVSS 9.4. In CISA KEV; used by Iran's MuddyWater for initial access. <i>Forensic Note:</i> Review access logs for cross-origin refresh-endpoint calls and anomalous token issuance.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2026-34926 (Trend Micro Apex One)</strong>
+                    <p>On-premise directory traversal lets a pre-authenticated local attacker modify a server key table to inject code pushed to managed agents; CVSS 6.7. CISA KEV with a June 4 deadline. <i>Forensic Note:</i> Verify key-table integrity and agent-deployment packages, and audit console logs for unauthorized table writes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Recent Malware Watch</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive: May 26, 2026</span>
+                    <strong>Mini Shai-Hulud Worm</strong>
+                    <p>Self-propagating npm/PyPI worm from TeamPCP; 170+ packages across 404 malicious versions, 518M monthly downloads, harvesting CI/CD, cloud, and Vault credentials and defeating SLSA Build Level 3 provenance. Hunt rogue preinstall scripts, unexpected Bun downloads, and the gh-token-monitor persistence daemon.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive: May 19, 2026</span>
+                    <strong>Tycoon2FA — Device-Code Phishing</strong>
+                    <p>Phishing-as-a-service kit abusing the OAuth 2.0 device-authorization grant to hijack Microsoft 365 accounts; issues tokens to attacker devices after victims enter a code at the legitimate devicelogin page. Audit AzureAD sign-ins for deviceCode authentication and enumerate newly registered devices.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="page-number">— Page 2 —</div>
+</div>
+
+</body>
+</html>
