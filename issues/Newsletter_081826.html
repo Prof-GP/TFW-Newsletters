@@ -181,10 +181,10 @@
             </article>
 
             <article style="border-top: 1px solid #ddd; padding-top: 25px;">
-                <h3>Insider Threat</h3>
-                <h2>Hired, Vetted, and Inside the Perimeter: The FBI Is Investigating How a North Korean IT Worker Landed a Job at a U.S. Federal Agency</h2>
-                <p>FBI Cyber Capabilities Branch deputy assistant director Todd Hemmen disclosed at a July 28 Washington conference that the Bureau is investigating a North Korean remote IT worker discovered in July 2026 working inside an unnamed federal agency — the highest-profile confirmed case yet of a fraud scheme long documented against private employers. Operatives use stolen identities, forged documents, and AI-generated deepfakes to clear remote-hiring screens, then funnel their salaries back to programs the State Department says help fund North Korea's weapons development.</p>
-                <p>The Identity Theft Resource Center logged 21 malicious-insider events in the first half of 2026 alone — seven times the three recorded in all of 2025 — and names the North Korean IT-worker pipeline the single largest driver of that surge. It remains unclear whether sensitive data was accessed. Forensic priority: audit remote-hire onboarding for device-fingerprint and geolocation inconsistencies, correlate VPN and badge-access patterns against claimed work location, and treat identity-verification artifacts — not just credentials — as evidence requiring preservation once insider fraud is suspected.</p>
+                <h3>Supply Chain</h3>
+                <h2>The Build That Lies About Working: 16 Typosquatted RubyGems Fake a Clean Install While Quietly Fetching a Windows Infostealer</h2>
+                <p>OpenSourceMalware disclosed a campaign it calls StubMaker on August 15 — 16 RubyGems packages typosquatting popular Ruby dependencies with clumsy, low-effort misspellings rather than the SEO-polished lookalikes typically seen in supply-chain attacks. Published by accounts "mod8rz41mje" and "rbq95bwt6q," each gem ships a Makefile with empty all, install, and clean targets alongside do-nothing Unix and Windows stub scripts, so the extension build phase reports success while the real payload runs from the installer hook itself: a platform beacon that fetches and executes a Windows loader.</p>
+                <p>Once resident, the loader harvests browser-stored credentials, cryptocurrency wallets and seed phrases, and Telegram session data. The technique's real innovation is procedural rather than technical — a fake successful build is a quieter tell than a failed one, since developers rarely investigate a gem that installs cleanly. Forensic priority: audit Gemfile.lock and installed-gem inventories against the 16 known typosquat names, inspect extconf.rb and Makefile targets for stub scripts that return success without building anything, and treat any Ruby dev machine with unexplained outbound beacon traffic as a credential-theft incident.</p>
             </article>
         </div>
 
@@ -231,15 +231,15 @@
         <div class="case-studies-grid">
 
             <div class="case-card">
-                <h3>The Snowden Disclosures (2013)</h3>
-                <h2>The Insider Who Needed No Exploit: How One Contractor's Access Redefined What "Breach" Means Inside a Trusted Perimeter</h2>
-                <p>In 2013, NSA contractor Edward Snowden used credentials he was legitimately granted to copy and exfiltrate an estimated 1.5 million classified documents, exposing global surveillance programs without triggering a single traditional intrusion alert — there was no malware to reverse-engineer and no exploit to patch, only authorized access misused at scale. The subsequent investigation forced intelligence agencies to build insider-threat programs around behavioral analytics and access auditing rather than perimeter defense alone, since the "attacker" had a badge and a login the whole time. That same premise — a fully vetted insider operating from inside the perimeter — is exactly what investigators are now untangling in this week's North Korean IT-worker case.</p>
+                <h3>The ctx PyPI Hijack (2022)</h3>
+                <h2>The Theft That Ran at "pip install": How a Hijacked Maintainer Account Turned Setup Scripts Into an Exfiltration Channel</h2>
+                <p>In May 2022, researchers discovered that the popular PyPI package ctx had been hijacked through a compromised maintainer account, with a malicious setup.py silently exfiltrating environment variables — AWS keys, API tokens, and other secrets — to an attacker-controlled endpoint the instant pip install ran; a companion attack against the PHP package phpass used the identical technique. Because the theft executed during installation rather than at import or runtime, static scanners and casual code review missed it entirely, and only anomalous outbound traffic during a routine build gave it away. It is a direct ancestor of this week's StubMaker campaign — the same install-time execution trick, now dressed up with a Makefile that reports a clean build to keep the theft invisible.</p>
             </div>
 
             <div class="case-card">
-                <h3>Stuxnet (2010)</h3>
-                <h2>Built for One Machine, Broken Everywhere Else: The Worm So Precisely Engineered for Its Target That It Behaved Unpredictably Off It</h2>
-                <p>Discovered in 2010, Stuxnet was purpose-built to sabotage centrifuges at Iran's Natanz facility, checking for exact Siemens PLC configurations before ever activating its payload — a level of environmental specificity previously unseen in malware. That same precision became its exposure: propagation logic meant for a single air-gapped facility carried it onto unrelated networks worldwide, where security researchers caught it precisely because it behaved strangely outside its intended environment. It is the direct ancestor of this week's Akira failure — malware engineered for one operating context, and undone the moment reality didn't match the assumption.</p>
+                <h3>Flame (2012)</h3>
+                <h2>Too Sophisticated to Hide: How the Most Complex Cyberespionage Tool Ever Found Was Uncovered While Investigating Something Else Entirely</h2>
+                <p>Kaspersky researchers stumbled onto Flame in May 2012 while investigating an unrelated data-wiping incident at Iranian oil facilities — and found a 20-megabyte espionage platform so environmentally precise it fingerprinted each target machine, activated modules only under exact matching conditions, and could remotely trigger its own suicide command to erase all trace of itself if a target didn't match. That same target-specific precision was the tell: its bloated size and unusual Lua-scripted architecture behaved so strangely outside its intended context that analysts caught it almost by accident. It is a fitting ancestor to this week's Akira failure — malware engineered so tightly for one operating environment that reality outside it exposed the seams.</p>
             </div>
 
             <div class="case-card">
@@ -270,23 +270,23 @@
 
                 <div class="tool-card">
                     <span class="tool-badge badge-opensource">Open Source</span>
-                    <h4>Zircolite</h4>
-                    <span class="tool-version">wagga40 — v2.x</span>
-                    <p>A standalone Sigma-rule engine that runs directly against EVTX without a SIEM. Ideal for hunting the boot-configuration and Safe Mode indicators behind Akira's failed EDR-evasion attempt — bcdedit invocations, unexpected reboots, and service-stop events all resolve to Sigma detections offline.</p>
+                    <h4>APT-Hunter</h4>
+                    <span class="tool-version">ahmedkhlief — v3.x</span>
+                    <p>An EVTX threat-hunting engine that applies built-in detection logic for common attacker tradecraft without needing a SIEM. Ideal for hunting the boot-configuration and Safe Mode indicators behind Akira's failed EDR-evasion attempt — bcdedit invocations, unexpected reboots, and service-stop events all resolve to timeline-ready detections offline.</p>
                 </div>
 
                 <div class="tool-card">
                     <span class="tool-badge badge-commercial">Commercial</span>
                     <h4>EnCase Endpoint Investigator</h4>
                     <span class="tool-version">OpenText — v25.x</span>
-                    <p>A remote, covert endpoint-investigation platform built for exactly this week's insider-threat scenario: preserving forensically sound evidence from a suspect employee's machine — file access history, USB activity, cloud-upload traces — without alerting the subject or disrupting daily operations.</p>
+                    <p>A remote, covert endpoint-investigation platform for scoping a compromise without alerting the subject or disrupting operations. Point it at a developer's machine after a StubMaker-style install-time infostealer hit to preserve file access history, browser credential-store timestamps, and outbound-connection artifacts.</p>
                 </div>
 
                 <div class="tool-card">
                     <span class="tool-badge badge-utility">Utility / Script</span>
-                    <h4>LOLDrivers</h4>
-                    <span class="tool-version">loldrivers.io — Community</span>
-                    <p>A continuously updated database of known vulnerable and malicious signed Windows drivers used in BYOVD EDR-killer attacks. Cross-reference any driver loaded around a suspicious reboot or service termination against LOLDrivers before ruling out a bring-your-own-vulnerable-driver evasion attempt.</p>
+                    <h4>RegRipper</h4>
+                    <span class="tool-version">Harlan Carvey — v4.x</span>
+                    <p>The long-standing registry-hive parsing framework for pulling structured data out of raw hives. Aimed squarely at this week's Akira Safe Mode incident: parse SYSTEM and SOFTWARE hives for boot-configuration entries, Safe Mode–eligible services, and Run-key persistence left behind by the failed encryption attempt.</p>
                 </div>
 
             </div>
