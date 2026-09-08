@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forensics Way - September 8, 2026 Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+        :root {
+            --newspaper-off-white: #fdfdfb;
+            --ink-black: #1a1a1a;
+            --accent-red: #9e1b1b;
+            --border-gray: #333;
+        }
+
+        body {
+            background-color: #e5e5e1;
+            font-family: 'Libre Baskerville', serif;
+            color: var(--ink-black);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            background-color: var(--newspaper-off-white);
+            padding: 50px 50px 20px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #c0c0ba;
+            min-height: 1100px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 5px solid var(--border-gray);
+            margin-bottom: 25px;
+        }
+
+        .masthead {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            padding-bottom: 10px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 2px solid var(--border-gray);
+            border-bottom: 2px solid var(--border-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: left;
+            border-bottom: 3px solid var(--border-gray);
+            margin: 0 0 25px 0;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        article { margin-bottom: 35px; }
+        h2 { font-size: 1.6rem; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.02em; }
+        h3 { font-family: 'Source Sans Pro', sans-serif; font-size: 0.85rem; color: var(--accent-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        p { font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 18px; word-spacing: -0.05em; }
+
+        .threat-intel-column { background-color: #f4f4f0; padding: 25px; border-left: 1px solid #ddd; }
+        .cve-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #d1d1ca; }
+        .cve-tag { background: var(--accent-red); color: white; padding: 3px 10px; font-size: 0.75rem; font-weight: bold; font-family: 'Source Sans Pro', sans-serif; border-radius: 2px; display: inline-block; margin-bottom: 8px; }
+
+        footer.comprehensive-footer {
+            background: var(--newspaper-off-white);
+            color: var(--ink-black);
+            padding: 35px 0;
+            margin: 40px 0 0 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            border-top: 8px double var(--border-gray);
+        }
+
+        .footer-section h4 {
+            color: var(--ink-black);
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-red);
+            display: inline-block;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-entry { border-left: 3px solid var(--accent-red); padding-left: 15px; margin-bottom: 10px; }
+        .footer-entry strong { display: block; font-size: 0.9rem; color: var(--accent-red); margin-bottom: 2px; text-transform: uppercase; }
+        .footer-entry span { font-size: 0.75rem; color: #666; font-weight: bold; text-transform: uppercase; }
+        .footer-entry p { font-size: 0.85rem; line-height: 1.4; color: #333; text-align: left; margin: 5px 0 0 0; }
+
+        .case-studies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 10px; }
+        .case-card { padding: 20px; border: 1px solid #eee; background: #fff; }
+
+        .tools-section { margin-top: 40px; }
+        .tools-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin-top: 10px; }
+        .tool-card { padding: 18px; border: 1px solid #ddd; background: #f9f9f7; border-top: 3px solid var(--accent-red); }
+        .tool-badge { display: inline-block; font-family: 'Source Sans Pro', sans-serif; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; margin-bottom: 10px; }
+        .badge-opensource { background: #1a4a1a; color: #fff; }
+        .badge-commercial { background: #1a2a4a; color: #fff; }
+        .badge-utility    { background: #4a3a1a; color: #fff; }
+        .tool-card h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin: 0 0 4px 0; line-height: 1.2; color: var(--ink-black); }
+        .tool-version { font-family: 'Source Sans Pro', sans-serif; font-size: 0.75rem; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: block; }
+        .tool-card p { font-size: 0.82rem; line-height: 1.5; color: #333; margin: 0; text-align: left; word-spacing: normal; }
+
+        .page-number {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 750px) {
+            .main-content, .case-studies-grid, .tools-grid,
+            footer.comprehensive-footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════ PAGE 1 ══════════════════════ -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Issue 32</span>
+            <span>Forensics Awareness This Week</span>
+            <span>Tuesday, September 8, 2026</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="column">
+            <div class="section-title">Front Page</div>
+
+            <article>
+                <h3>AI-Enabled Attacks</h3>
+                <h2>Ten Hours, Zero Humans: A Ransomware Crew Lets Frontier AI Agents Run the Entire Kill Chain — Then Leaves an 80-Page Audit Behind</h2>
+                <p>Unit 42 documented an intrusion where a ransomware operator handed the entire attack to frontier AI models and an agentic framework, compressing a compromise that normally takes human operators about two weeks into under 10 hours. A reconnaissance agent mapped a public API endpoint and the internal microservices behind it; subagents then scraped code repositories for hardcoded tokens and passwords, used them to reach the organization's secret-management system, and extracted master administrative credentials for root access. Specialist "pivot agents" independently validated that access across cloud, identity, CI/CD, container, and SaaS environments before hijacking CI/CD workflows to steal cloud access keys and repurposing the victim's own cloud AI services as post-compromise infrastructure.</p>
+                <p>The attacker then left something no ransomware crew has bothered with before: an 80-page report, generated by an agent, cataloging dozens of exploited findings across the environment — reconnaissance-as-ransom-note. Forensic priority: review CI/CD workflow logs for anomalous cloud-key issuance events, audit the secret-management system's access trail for the exact path to the stolen master credential, treat any of the victim's own AI or cloud services showing unexpected activity as compromised infrastructure rather than merely accessed resources, and preserve the attacker's left-behind audit document itself — it maps their reconnaissance in near-total detail.</p>
+            </article>
+
+            <article style="border-top: 1px solid #ddd; padding-top: 25px;">
+                <h3>Zero-Day</h3>
+                <h2>No Patch, No Password: Magento's Payment-Reminder Email Becomes a Loading Dock for a Rust Backdoor</h2>
+                <p>Sansec disclosed StyleSmuggler on September 4 — an unauthenticated remote-code-execution zero-day (CVE-2026-75650, CVSS 10.0) affecting every current version of Magento Open Source and Adobe Commerce, including the newly released 2.4.9. The flaw abuses Magento's template system: an attacker injects PHP into the "Payment Transaction Failed Reminder" email template using the platform's own 'styles' properties to slip past detection, triggering code execution the moment the reminder email renders. Sansec reproduced the full unauthenticated attack chain on clean installs of 2.4.7 through 2.4.9 before a patch existed.</p>
+                <p>Two payloads have been observed in the wild: a Rust-based Linux backdoor phoning home to an external server, and a PHP dropper that writes a persistent web shell. Adobe's post-patch guidance is unusually severe — treat the site's encryption key as burned and rotate everything it protected: admin passwords, REST/SOAP/GraphQL tokens, OAuth client secrets, payment gateway API credentials, database credentials, SSH and deploy keys, and third-party extension API keys. Forensic priority: apply the VULN-39341 patch immediately, audit the Payment Transaction Failed Reminder template for injected 'styles' content, hunt outbound connections matching the Rust backdoor's C2 pattern, and search template and media directories for planted PHP web shells.</p>
+            </article>
+        </div>
+
+        <div class="column threat-intel-column">
+            <h2 style="font-family: 'Playfair Display'; border-bottom: 2px solid #000; padding-bottom: 10px;">Threat Bulletin</h2>
+
+            <div class="cve-item">
+                <span class="cve-tag">ACTIVE EXPLOIT</span><br>
+                <strong>CVE-2026-83548 / CVE-2026-83549</strong>
+                <p style="font-size: 0.9rem;">SonicWall SMA1000 (models 6210, 7210, 8200v) — a pre-auth SSRF in the Work Place interface (CVSS 10.0) chains into an OS command-injection flaw in the Appliance Management Console, yielding unauthenticated RCE. INC Ransomware has become the most active group weaponizing the chain — the third SMA1000 zero-day incident in 2026 after July's CVE-2026-15409/15410. <i>Forensic Note:</i> Patch immediately, review Work Place and AMC access logs for SSRF-pattern requests, and treat every internet-facing SMA1000 as compromised until proven otherwise.</p>
+            </div>
+
+            <div class="cve-item">
+                <span class="cve-tag">ACTIVE EXPLOIT</span><br>
+                <strong>CVE-2026-9586</strong>
+                <p style="font-size: 0.9rem;">Sangoma Switchvox — a SQL injection flaw is being weaponized to deploy reverse shells and mint unauthorized administrative tokens. Added to CISA KEV this week. <i>Forensic Note:</i> Review Switchvox database query logs for injection patterns, audit admin-token issuance for unexplained new tokens, and hunt reverse-shell callback traffic from the appliance's host network.</p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #1a1a1a;">Malware Spotlight</h3>
+            <div class="cve-item" style="border-bottom: none;">
+                <strong style="color: var(--accent-red);">Manic — The Android Trojan That Steals Your PIN While the App Works Fine</strong>
+                <p style="font-size: 0.9rem;">Manic abuses Android Accessibility services to lay an invisible overlay on top of a targeted app's numeric keypad: it records each tap, then briefly passes the tap through to the real keypad, so the banking app functions normally while the PIN is silently captured. The same Accessibility-based keylogger classifies and captures passwords, SMS codes, crypto seed phrases, and lock-screen input across 169 monitored apps spanning banking, government eID, crypto, 2FA, and messaging services, mostly in Europe. When offline, it relays stolen data over Wi-Fi or Bluetooth to nearby infected devices, which forward it onward once connected. <i>Forensic Note:</i> Audit installed apps for unwarranted Accessibility service permissions, review Bluetooth/Wi-Fi Direct connection logs for peer-to-peer data transfers between unrelated devices, and treat any device that granted broad Accessibility access to a sideloaded app as compromised.</p>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">— Page 1 —</div>
+</div>
+
+<!-- ══════════════════════ PAGE 2 ══════════════════════ -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Historical Archives</span>
+            <span>History of Digital Investigation</span>
+            <span>Tuesday, September 8, 2026</span>
+        </div>
+    </header>
+
+    <div style="flex-grow: 1;">
+
+        <!-- CASE STUDIES -->
+        <div class="section-title">Case Studies: Historical Grid</div>
+        <div class="case-studies-grid">
+
+            <div class="case-card">
+                <h3>SQL Slammer (2003)</h3>
+                <h2>Ten Minutes to Global: The Worm That Proved a Machine Can Outrun Every Human Defender at Once</h2>
+                <p>On January 25, 2003, a single 376-byte UDP packet exploiting an unpatched Microsoft SQL Server buffer overflow spawned a worm that doubled its infected population every 8.5 seconds, reaching an estimated 75,000 hosts worldwide in under 10 minutes — faster than any human incident response process could even be paged. SQL Slammer carried no payload beyond self-replication, yet its sheer propagation speed saturated internet backbones, knocked out ATMs, and delayed an airline's ticketing system, becoming the canonical proof that removing the human decision loop from an attack changes the physics of defense entirely. This week's AI-agent ransomware campaign is the same lesson two decades later: a two-week human intrusion compressed to 10 hours once the decision-making step is automated away.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Heartbleed (2014)</h3>
+                <h2>The Bug That Made the Whole Internet Rotate Its Keys: OpenSSL's Memory-Disclosure Wake-Up Call</h2>
+                <p>Disclosed in April 2014, Heartbleed was a buffer over-read in OpenSSL's heartbeat extension that let a remote, unauthenticated attacker read up to 64KB of a server's process memory per request — private keys, session tokens, and credentials included — from roughly two-thirds of the internet's HTTPS servers with no trace left in server logs. Its aftermath introduced the now-familiar playbook this week's StyleSmuggler advisory echoes almost verbatim: patch first, then assume every key and credential the vulnerable process touched is burned and must be rotated, because the vulnerability itself leaves no reliable record of what was actually taken.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>SYNful Knock (2015)</h3>
+                <h2>The Firmware That Wouldn't Show Itself: How FireEye Found a Persistent Backdoor Hiding Inside Cisco Routers</h2>
+                <p>In September 2015, FireEye's Mandiant unit disclosed SYNful Knock, a modified Cisco IOS firmware image found on routers across four countries that gave attackers persistent, unauthenticated access surviving normal reboots — activated by sending crafted TCP SYN packets to the device, a covert command channel that left no obvious trace in standard configuration review. Because the backdoor lived in the firmware itself rather than in a running process, conventional endpoint detection had nothing to see, and only integrity checks against known-good firmware hashes exposed it.</p>
+            </div>
+
+            <div class="case-card">
+                <h3>Log4Shell (2021)</h3>
+                <h2>One Log Line, Total Compromise: How a String Formatter Became the Internet's Worst Zero-Day</h2>
+                <p>In December 2021, researchers disclosed CVE-2021-44228 — Log4Shell — a flaw in the ubiquitous Java logging library Log4j where a single attacker-controlled log message containing a JNDI lookup string could trigger remote class loading and code execution, instantly weaponizable against millions of internet-facing Java applications with zero authentication required. The underlying lesson — that dynamically loading a class or resource based on untrusted input is inherently dangerous, no matter how deep in the application stack it happens — keeps resurfacing in new templating and class-loading engines years later.</p>
+            </div>
+
+        </div>
+
+        <!-- TOOLS OF THE TRADE -->
+        <div class="tools-section">
+            <div class="section-title">Tools of the Trade</div>
+            <div class="tools-grid">
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-opensource">Open Source</span>
+                    <h4>ScoutSuite</h4>
+                    <span class="tool-version">NCC Group — v5.x</span>
+                    <p>Multi-cloud security-auditing tool covering AWS, Azure, and GCP configuration and IAM posture. Run it post-incident against any environment touched by this week's AI-agent ransomware to map exactly what the stolen master credential and hijacked CI/CD keys could reach.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-opensource">Open Source</span>
+                    <h4>MobSF</h4>
+                    <span class="tool-version">Mobile Security Framework — v4.x</span>
+                    <p>Automated static and dynamic analysis framework for Android and iOS applications. Point it at a suspected Manic APK to map its Accessibility-service permissions, extract the 169-app target list, and trace the overlay-injection logic without manual decompilation.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-commercial">Commercial</span>
+                    <h4>eComscan</h4>
+                    <span class="tool-version">Sansec — v2026.09</span>
+                    <p>Malware scanner purpose-built for Magento and Adobe Commerce storefronts, from the same researchers who discovered StyleSmuggler. Scans template files, media directories, and cron jobs for the Rust backdoor's footprint and any planted PHP web shells before and after patching.</p>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-badge badge-utility">Utility / Script</span>
+                    <h4>osquery</h4>
+                    <span class="tool-version">osquery Community — v5.x</span>
+                    <p>SQL-queryable endpoint telemetry framework for fleet-wide investigation. Query every Linux management host adjacent to an SMA1000 deployment in one pass for indicators of the SSRF-to-RCE chain, rather than triaging appliances one at a time.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="comprehensive-footer">
+        <div class="footer-section">
+            <h4>Priority CVE Advisories</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2026-65400 (Apple macOS Screen Sharing)</strong>
+                    <p>Improper-authentication flaw lets a remote attacker bypass credential checks for interactive Screen Sharing access; CVSS 9.8. CISA KEV. <i>Forensic Note:</i> Review Screen Sharing connection logs for unrecognized source IPs and confirm the current macOS security update is applied.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive Alert</span>
+                    <strong>CVE-2026-8037 (Progress Kemp LoadMaster)</strong>
+                    <p>Unauthenticated remote command execution in the load balancer's management interface; 792 exploit attempts across 65 IPs logged before the KEV addition. <i>Forensic Note:</i> Inventory internet-facing LoadMaster management interfaces and treat any reachable instance as compromised until artifact review proves otherwise.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Recent Malware Watch</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <span>Archive: September 1, 2026</span>
+                    <strong>Nimbus Manticore — Iran's Espionage Toolkit Gets a New Backdoor</strong>
+                    <p>A TWOSTROKE-like backdoor and dedicated SSH tunneler expand the Iranian group's persistence options, blending with legitimate remote-administration traffic. Hunt unexpected outbound SSH tunnels from hosts with no administrative reason to run one.</p>
+                </div>
+                <div class="footer-entry">
+                    <span>Archive: August 25, 2026</span>
+                    <strong>Amnesia Stealer — The macOS Malware That Watches You Work</strong>
+                    <p>Harvests credentials from 16 Chromium browsers, iCloud Keychain, and crypto wallets, then opens a live Chrome DevTools Protocol screencast for real-time, attacker-driven session hijacking. Hunt unexpected processes holding open CDP debug ports.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="page-number">— Page 2 —</div>
+</div>
+
+</body>
+</html>
