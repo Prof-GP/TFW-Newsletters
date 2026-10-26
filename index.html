@@ -382,10 +382,29 @@
 
         <div class="featured-grid">
 
+            <!-- ISSUE 39 -->
+            <div class="feature-card">
+                <div class="issue-meta">
+                    <span class="issue-number">Issue 39 <span class="latest-badge">Latest</span></span>
+                    <span class="issue-date">October 27, 2026</span>
+                </div>
+                <h3>The Layer Underneath: Pre-Auth RCE in the PHP Runtime as Eight Weak CA Keys Land in Every Trust Store and an AI Agent Runs a Nation-State Intrusion</h3>
+                <ul class="story-list">
+                    <li>PHP2Shell &mdash; CVE-2026-109618 and CVE-2026-109619 give unauthenticated RCE across every PHP install serving web requests (CVSS v4 9.2). Embargo broke Oct 20, emergency patches Oct 21, KEV Oct 26. Execution lands as the web worker and drops no file, so request logs are the only record</li>
+                    <li>Eight eMudhra intermediate CA keys compromised &mdash; weak, not stolen, each P-384 value derivable from the public certificate in under a second after a flawed April 2025 key ceremony. Browsers blocked them Oct 17&ndash;20; non-browser trust stores in containers, build pipelines and embedded devices remain the gap</li>
+                    <li>CVE-2026-111497 Brotli out-of-bounds write, Node2Shell widening to HTTP2Shell across Node.js, Bun and Python packages &amp; CVE-2026-110447 Collabora CODE Server command injection in Nextcloud (KEV Oct 23)</li>
+                    <li>ARTEX &mdash; Microsoft ties the ConnectWise supply chain compromise to Storm-0940 driving an agentic AI pentest framework: hundreds of targets, under three hours from first contact to privileged cloud access, and no interactive sign-in to log</li>
+                </ul>
+                <div class="card-actions">
+                    <a class="btn btn-primary" href="issues/Newsletter_102726.html" target="_blank">Read Online</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_102726.pdf" download>PDF</a>
+                </div>
+            </div>
+
             <!-- ISSUE 38 -->
             <div class="feature-card">
                 <div class="issue-meta">
-                    <span class="issue-number">Issue 38 <span class="latest-badge">Latest</span></span>
+                    <span class="issue-number">Issue 38</span>
                     <span class="issue-date">October 20, 2026</span>
                 </div>
                 <h3>The Appliance Is the Crime Scene: Chained Ivanti Zero-Days Leave the Integrity Checker Clean as Europol Maps a Continent's Digital Forensics Gaps</h3>
@@ -439,31 +458,22 @@
                 </div>
             </div>
 
-            <!-- ISSUE 35 -->
-            <div class="feature-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 35</span>
-                    <span class="issue-date">September 29, 2026</span>
-                </div>
-                <h3>The Gatekeeper With No Gate: A CVSS 10.0 Cisco ISE Zero-Day Hands Over the Identity Layer as an Attacker Rides a Live AI Coding Session Into 100 Repos</h3>
-                <ul class="story-list">
-                    <li>CVE-2026-76460 — a CVSS 10.0 Cisco Identity Services Engine auth bypass under active attack lets an unauthenticated attacker own the appliance that decides who is trusted at all</li>
-                    <li>Mandiant documents an attacker hijacking a developer's live AI coding-assistant session, poisoning a recommended package, then worming Shai-Hulud across ~100 internal repos for secrets &amp; source</li>
-                    <li>CVE-2026-94127 F5 BIG-IP APM heap overflow &amp; CVE-2026-85102/93616 Check Point cert-validation + path traversal (all added to CISA KEV September 22)</li>
-                    <li>KREMLIN — Brazilian banking toolkit that plants malicious Chrome/Edge extensions to lift session tokens from inside an already-authenticated browser, skipping MFA entirely</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_092926.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_092926.pdf" download>PDF</a>
-                </div>
-            </div>
-
         </div>
 
         <!-- ── ARCHIVE LIST (older issues) ── -->
         <div class="archive-section">
             <div class="section-label">Previous Issues</div>
             <div class="archive-list">
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 35</span>
+                    <span class="archive-date">September 29, 2026</span>
+                    <span class="archive-headline">The Gatekeeper With No Gate: A CVSS 10.0 Cisco ISE Zero-Day Hands Over the Identity Layer as an Attacker Rides a Live AI Coding Session Into 100 Repos</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_092926.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_092926.pdf" download>PDF</a>
+                    </div>
+                </div>
 
                 <div class="archive-row">
                     <span class="issue-number">Issue 34</span>
