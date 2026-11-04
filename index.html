@@ -382,10 +382,29 @@
 
         <div class="featured-grid">
 
+            <!-- ISSUE 40 -->
+            <div class="feature-card">
+                <div class="issue-meta">
+                    <span class="issue-number">Issue 40 <span class="latest-badge">Latest</span></span>
+                    <span class="issue-date">November 3, 2026</span>
+                </div>
+                <h3>Blinding the Record: A CVSS 2.7 Zero-Day Whose Only Purpose Was to Erase the Audit Trail, and a Peer-Reviewed Test of an AI Expert System Against Twenty Examiners</h3>
+                <ul class="story-list">
+                    <li>CVE-2026-41709 &mdash; CrowdStrike reports the China-nexus actor Warp Panda used a Low-severity VMware ESX logging gap as a zero-day against US organisations including law firms, purely to reduce audit-trail visibility. It grants no access and escalates nothing, which is why it scored 2.7 and why most estates patched it in July without noticing (KEV Oct 28)</li>
+                    <li>The Magnet AI Research Lab launches with a peer-reviewed <em>Journal of Forensic Sciences</em> study: fourteen video files against twenty trained examiners and an expert system, 91 per cent to 69, and no incorrect classification &mdash; the abstention behaviour matters more than the gap, and the vendor-funded design belongs in any citation of it</li>
+                    <li>CVE-2026-119977 WordPress Core upgrade-window RCE, a TOCTOU race in predictable staging paths exploitable in the seconds a core package is unpacked (KEV Nov 3) &amp; CVE-2026-46300 &ldquo;Fragnesia&rdquo;, the Linux kernel escalation chained behind PHP2Shell to root around twenty-five internet-facing Palo Alto firewalls</li>
+                    <li>Skyw4lker &mdash; a device-code phishing kit that steals no password and drops no file, leaving an Entra ID device-code sign-in as the only artefact of a Microsoft 365 account takeover</li>
+                </ul>
+                <div class="card-actions">
+                    <a class="btn btn-primary" href="issues/Newsletter_110326.html" target="_blank">Read Online</a>
+                    <a class="btn btn-secondary" href="issues/Newsletter_110326.pdf" download>PDF</a>
+                </div>
+            </div>
+
             <!-- ISSUE 39 -->
             <div class="feature-card">
                 <div class="issue-meta">
-                    <span class="issue-number">Issue 39 <span class="latest-badge">Latest</span></span>
+                    <span class="issue-number">Issue 39</span>
                     <span class="issue-date">October 27, 2026</span>
                 </div>
                 <h3>The Layer Underneath: Pre-Auth RCE in the PHP Runtime as Eight Weak CA Keys Land in Every Trust Store and an AI Agent Runs a Nation-State Intrusion</h3>
@@ -439,31 +458,22 @@
                 </div>
             </div>
 
-            <!-- ISSUE 36 -->
-            <div class="feature-card">
-                <div class="issue-meta">
-                    <span class="issue-number">Issue 36</span>
-                    <span class="issue-date">October 6, 2026</span>
-                </div>
-                <h3>Remediation That Doesn't Stick: NetScaler Web Shells Outlive the Patch, 543,699 Deleted Credentials Still Authenticate, and a WordPress Backdoor Rebuilds Itself From Any Survivor</h3>
-                <ul class="story-list">
-                    <li>CVE-2026-88771/88772 &mdash; two NetScaler ADC/Gateway zero-days (CVSS 9.5) surfaced during forensic investigations; web shells planted before the fix existed survive the patch, with activity traced back to August 21</li>
-                    <li>Truffle Security scans The Stack v3 (224.5M repos) and live-verifies 543,699 still-working credentials &mdash; median 784 days public, oldest from 2009 &mdash; proving a training corpus is a copy you cannot recall</li>
-                    <li>CVE-2026-76504 Cisco Catalyst SD-WAN Manager URI hex-encoding auth bypass (CVSS 9.8, KEV) &amp; CVE-2026-102489/102490 Zammad session fixation + privilege management (KEV)</li>
-                    <li>SC &mdash; Sucuri's "self-healing mesh" WordPress backdoor living in eight places at once, across files, the database and System V shared memory</li>
-                </ul>
-                <div class="card-actions">
-                    <a class="btn btn-primary" href="issues/Newsletter_100626.html" target="_blank">Read Online</a>
-                    <a class="btn btn-secondary" href="issues/Newsletter_100626.pdf" download>PDF</a>
-                </div>
-            </div>
-
         </div>
 
         <!-- ── ARCHIVE LIST (older issues) ── -->
         <div class="archive-section">
             <div class="section-label">Previous Issues</div>
             <div class="archive-list">
+
+                <div class="archive-row">
+                    <span class="issue-number">Issue 36</span>
+                    <span class="archive-date">October 6, 2026</span>
+                    <span class="archive-headline">Remediation That Doesn't Stick: NetScaler Web Shells Outlive the Patch, 543,699 Deleted Credentials Still Authenticate, and a WordPress Backdoor Rebuilds Itself From Any Survivor</span>
+                    <div class="archive-actions">
+                        <a class="btn btn-primary" href="issues/Newsletter_100626.html" target="_blank">Read</a>
+                        <a class="btn btn-secondary" href="issues/Newsletter_100626.pdf" download>PDF</a>
+                    </div>
+                </div>
 
                 <div class="archive-row">
                     <span class="issue-number">Issue 35</span>
