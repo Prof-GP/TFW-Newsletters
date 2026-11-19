@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Forensics Way - November 17, 2026 Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+        :root {
+            --newspaper-off-white: #fdfdfb;
+            --ink-black: #1a1a1a;
+            --accent-red: #9e1b1b;
+            --border-gray: #333;
+        }
+
+        body {
+            background-color: #e5e5e1;
+            font-family: 'Libre Baskerville', serif;
+            color: var(--ink-black);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            background-color: var(--newspaper-off-white);
+            padding: 50px 50px 20px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid #c0c0ba;
+            min-height: 1100px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 5px solid var(--border-gray);
+            margin-bottom: 25px;
+        }
+
+        .masthead {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            padding-bottom: 10px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 2px solid var(--border-gray);
+            border-bottom: 2px solid var(--border-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: left;
+            border-bottom: 3px solid var(--border-gray);
+            margin: 0 0 25px 0;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        article { margin-bottom: 35px; }
+        h2 { font-size: 1.6rem; margin: 0 0 12px 0; line-height: 1.2; letter-spacing: -0.02em; }
+        h3 { font-family: 'Source Sans Pro', sans-serif; font-size: 0.85rem; color: var(--accent-red); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        p { font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 18px; word-spacing: -0.05em; }
+
+        .threat-intel-column { background-color: #f4f4f0; padding: 25px; border-left: 1px solid #ddd; }
+        .cve-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #d1d1ca; }
+        .cve-tag { background: var(--accent-red); color: white; padding: 3px 10px; font-size: 0.75rem; font-weight: bold; font-family: 'Source Sans Pro', sans-serif; border-radius: 2px; display: inline-block; margin-bottom: 8px; }
+
+        footer.comprehensive-footer {
+            background: var(--newspaper-off-white);
+            color: var(--ink-black);
+            padding: 35px 0;
+            margin: 40px 0 0 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            border-top: 8px double var(--border-gray);
+        }
+
+        .footer-section h4 {
+            color: var(--ink-black);
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-red);
+            display: inline-block;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-entry { border-left: 3px solid var(--accent-red); padding-left: 15px; margin-bottom: 10px; }
+        .footer-entry strong { display: block; font-size: 0.9rem; color: var(--accent-red); margin-bottom: 2px; text-transform: uppercase; }
+        .footer-entry span { font-size: 0.75rem; color: #666; font-weight: bold; text-transform: uppercase; }
+        .footer-entry p { font-size: 0.85rem; line-height: 1.4; color: #333; text-align: left; margin: 5px 0 0 0; }
+
+        .case-studies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 10px; }
+        .case-card { padding: 20px; border: 1px solid #eee; background: #fff; }
+
+        .tools-section { margin-top: 40px; }
+        .tools-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; margin-top: 10px; }
+        .tool-card { padding: 18px; border: 1px solid #ddd; background: #f9f9f7; border-top: 3px solid var(--accent-red); }
+        .tool-badge { display: inline-block; font-family: 'Source Sans Pro', sans-serif; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; margin-bottom: 10px; }
+        .badge-opensource { background: #1a4a1a; color: #fff; }
+        .badge-commercial { background: #1a2a4a; color: #fff; }
+        .badge-utility    { background: #4a3a1a; color: #fff; }
+        .tool-card h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin: 0 0 4px 0; line-height: 1.2; color: var(--ink-black); }
+        .tool-version { font-family: 'Source Sans Pro', sans-serif; font-size: 0.75rem; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: block; }
+        .tool-card p { font-size: 0.82rem; line-height: 1.5; color: #333; margin: 0; text-align: left; word-spacing: normal; }
+
+        .page-number {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 750px) {
+            .main-content, .case-studies-grid, .tools-grid,
+            footer.comprehensive-footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<!-- =================== PAGE 1 =================== -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Issue 42</span>
+            <span>Forensics Awareness This Week</span>
+            <span>Tuesday, November 17, 2026</span>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="column">
+            <h2 class="section-title">Front Page</h2>
+
+            <article>
+                <h3>Mobile Forensics</h3>
+                <h2>The Courier Keeps a Copy: Push Notification Records Belong to Play Services, Not to the App You Deleted</h2>
+                <p>GMDSOFT technical analysis, carried by Forensic Focus on November 11, triggered Firebase Cloud Messaging data messages across LINE, Telegram, KakaoTalk, Signal, WhatsApp, TikTok and BAND, then examined what the handset kept. Records from every application tested landed in a single LevelDB-based store inside the Google Play Services data area, <em>com.google.android.gms</em>, sharing one common key-value structure, and each record identified the receiving application and the time the message arrived.</p>
+                <p>Three payload patterns emerged: plain text that is readable once decoded, a body that is present but encrypted, and records that are metadata only &mdash; proof a message arrived with no content attached. The structural point is the one worth carrying into a case: the store belongs to Play Services rather than to the application, so removing the application does not by itself remove the record of what it received. <em>Forensic priority:</em> treat the Play Services data area as a communications source in its own right and check it when an application of interest is absent from the device. The same logic reaches past push notifications: wherever a platform component handles data on an application's behalf, what is retained is governed by the platform rather than by the application's own cleanup. The authors are explicit about the limits &mdash; FCM artefacts do not replace application-level analysis, and the storage format varies across application versions, so decode results from one case do not transfer unverified to the next.</p>
+            </article>
+
+            <article>
+                <h3>Incident Response</h3>
+                <h2>288 Endpoints in Ninety Minutes, and the Only Tell Was a Command With No Login Behind It</h2>
+                <p>Attackers reached cloud-hosted ScreenConnect instances on November 11 and used the platform's own Run Command feature to install rogue clients across managed endpoints. Huntress put the confirmed scope at a minimum of 288 endpoints across 48 organisations, every one touched inside ninety minutes and about a third within the first ten. Initial access is attributed to RMM+, a third-party ScreenConnect extension whose versions 1.0.31 and 1.0.32 left a shared access key blank when no administrator had set one; supplying an empty key issued commands without a ScreenConnect login or MFA. ConnectWise disabled five potentially related extensions across roughly 400 partner environments.</p>
+                <p>The toolkit recovered afterwards, named SCKit by Huntress and Blackpoint Cyber, is sixteen scripts and components built to climb from the customer endpoint back to the technician. RelayTrap ships as C# source compiled locally by a PowerShell script, replaces the legitimate ScreenConnect Guest process and waits for a technician to connect, while TrapWatch monitors the services to prepare the swap; other components steal ScreenConnect session cookies from browsers. Neither firm observed that climb succeed, and Blackpoint reproduced the file-transfer exploit against a current client and watched the patch hold. <em>Forensic priority:</em> what exposed this was the platform log showing commands executed with no matching user login &mdash; audit the management console before the endpoints, and do not open an interactive session to a host you suspect.</p>
+            </article>
+        </div>
+
+        <div class="threat-intel-column">
+            <h2 class="section-title">Threat Bulletin</h2>
+
+            <div class="cve-item">
+                <span class="cve-tag">Active Exploit</span>
+                <p><strong>CVE-2026-115731</strong> &mdash; Perforce Puppet Enterprise. Unsafe deserialization in Puppet's report-processing code lets a client holding any CA-signed agent certificate run code on the Puppet Server as the service user, by submitting a report carrying a crafted rich-data type in a PUT request; CVSS 9.9. Where the certificate authority autosigns requests without strong verification, obtaining that certificate is itself unauthenticated. Fixed in Puppet Enterprise 2026.0.1, 2025.12.1 and 2023.8.13; CISA KEV November 17, due December 1, with public exploit code available. <em>Forensic Note:</em> The agent report is the attack path, so every node that submitted one is in scope &mdash; review Puppet Server logs for processes spawned by the service account.</p>
+            </div>
+
+            <div class="cve-item">
+                <span class="cve-tag">Active Exploit</span>
+                <p><strong>CVE-2026-123039</strong> &mdash; Check Point Gaia OS. The DynamicCLI daemon runs as root and listens on a world-writable local socket without authenticating the process that connects, so any authenticated local user reaches root; CVSS 7.8, R81 through R82.20. Check Point reports it chained behind the PHP2Shell flaws against Mobile Access portals from October 30, planting the TSGA backdoor; some victims then lost an ESXi host to a wiper reached over SSH. CISA KEV November 13. <em>Forensic Note:</em> A Gaia snapshot or backup taken after October 30 can restore the backdoor with the configuration &mdash; validate the restore point before you roll back to it.</p>
+            </div>
+
+            <div class="cve-item">
+                <span class="cve-tag">Malware Spotlight</span>
+                <p><strong>Cursor Marketplace Cache Poisoning</strong> &mdash; On November 14 Cursor confirmed that attackers used an access key held at Fireworks AI, its third-party inference provider, to read a bucket of 2025 coding-agent traces holding unredacted API credentials. One of those credentials placed malicious copies of Anthropic's Claude Code extension, versions 2.1.312 and 2.1.313, into the cache serving Cursor's extension marketplace on October 29. They were live about eleven hours; up to 5,000 users may have fetched them. <em>Forensic Note:</em> The payload installed an attacker-controlled SSH key and tried to enable SSH, so the artefact on a developer workstation is an <em>authorized_keys</em> entry and an sshd configuration change &mdash; not a file on disk to scan for.</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="page-number">&mdash; Page 1 &mdash;</div>
+</div>
+
+<!-- =================== PAGE 2 =================== -->
+<div class="page">
+    <header>
+        <h1 class="masthead">The Forensics Way</h1>
+        <div class="sub-header">
+            <span>Historical Archives</span>
+            <span>History of Digital Investigation</span>
+            <span>Tuesday, November 17, 2026</span>
+        </div>
+    </header>
+
+    <h2 class="section-title">Case Studies: Historical Grid</h2>
+
+    <div class="case-studies-grid">
+
+        <div class="case-card">
+            <h3>Operation Ghost Click &mdash; DNSChanger (2011&ndash;2012)</h3>
+            <h2>When the Only Census of the Victims Was the Infrastructure the Police Had Just Seized</h2>
+            <p>DNSChanger, run from Estonia by the Rove Digital operation, worked by rewriting an infected machine's DNS settings so that every lookup it made went to servers the criminals controlled. A two-year FBI investigation ended in November 2011 with an unsealed indictment and arrests carried out with NASA's Office of Inspector General and Estonian police. The problem the takedown created is the one worth remembering: pulling the rogue resolvers offline would have cut every victim off the internet, so in March 2012 a court authorised the Internet Systems Consortium to run clean replacement servers in their place, shut down on July 9, 2012. For those months the resolver in the middle was the only instrument that could count the infected &mdash; and the counts still disagreed, with F-Secure estimating around 300,000 machines remaining in early July while figures attributed to the FBI put it an order of magnitude lower. A measurement point you inherit from the attacker tells you who is still talking to it, which is not the same question as who is still infected.</p>
+        </div>
+
+        <div class="case-card">
+            <h3>Operation Trojan Shield &mdash; ANOM (2018&ndash;2021)</h3>
+            <h2>The Platform Was the Evidence: Three Years of Messages From a Network the Investigators Owned</h2>
+            <p>After the FBI's 2018 arrest of Vincent Ramos of Phantom Secure removed one encrypted-handset provider from the market, the FBI and the Australian Federal Police filled the gap themselves, distributing hardened phones running the ANOM application through the same criminal resellers the market already trusted. Users believed they were buying end-to-end encryption; the platform in the middle was operated by the investigators, and the product was not an intercept bolted onto someone else's network but a complete evidentiary record generated by design. The operation was revealed on June 8, 2021, with the Justice Department citing more than 800 arrests worldwide, 17 defendants indicted in the United States, 224 arrests and over 526 charges in Australia, and seizures including eight tonnes of cocaine, 250 firearms and more than $48 million. It also set the admissibility arguments that followed: when the state designs the system that produces the record, provenance and lawful authority become the contested ground rather than the data itself.</p>
+        </div>
+
+        <div class="case-card">
+            <h3>Post Office Horizon (1999&ndash;2024)</h3>
+            <h2>Seven Hundred Prosecutions Built on Software Output Nobody Was Allowed to Doubt</h2>
+            <p>From 1999 the UK Post Office rolled out Fujitsu's Horizon accounting system across its branch network and prosecuted subpostmasters when it reported shortfalls &mdash; around seven hundred of them, with 236 people imprisoned. The 2019 High Court litigation in <em>Bates v Post Office</em>, brought by more than 550 claimants, established that the software itself could generate phantom losses, opening the route to appeal; convictions were quashed in waves from December 2020 before Parliament quashed eligible cases in bulk under the Post Office (Horizon System) Offences Act 2024. It remains the reference case for computer-generated evidence treated as reliable by default rather than as a claim to be tested.</p>
+        </div>
+
+        <div class="case-card">
+            <h3>State v. Amero (2007)</h3>
+            <h2>The Examination That Never Looked for Malware, and the Conviction It Produced</h2>
+            <p>A Connecticut substitute teacher was convicted in January 2007 after pornographic pop-ups appeared on a classroom computer, the case resting on a police examiner who testified that he had relied solely on one commercial tool. The machine was an ageing Windows 98 SE system whose security software licence had expired. An independent review organised by Sunbelt Software's Alex Eckelberry contradicted much of the testimony, and on June 6, 2007 the trial judge threw out the conviction. The prosecution ended in November 2008 without exoneration &mdash; a plea to a lesser charge, a $100 fine and a surrendered teaching licence.</p>
+        </div>
+    </div>
+
+    <div class="tools-section">
+        <h2 class="section-title">Tools of the Trade</h2>
+        <div class="tools-grid">
+
+            <div class="tool-card">
+                <span class="tool-badge badge-opensource">Open Source</span>
+                <h4>regfprobe</h4>
+                <span class="tool-version">v0.2.0 &mdash; Alexis Brignoni</span>
+                <p>Reads SYSTEM, SOFTWARE, SAM, NTUSER.DAT and Amcache.hve offline and read-only, straight out of E01 or raw images with no prior extraction. Dirty hives are resolved by replaying transaction logs in memory, with a trust indicator shown to the examiner. One standard-library Python file under MIT, written to be vendored.</p>
+            </div>
+
+            <div class="tool-card">
+                <span class="tool-badge badge-commercial">Commercial</span>
+                <h4>Belkasoft X</h4>
+                <span class="tool-version">v2.13 &mdash; November 2026</span>
+                <p>Adds deleted-file analysis driven by NTFS Master File Table records, reconstructing entries for deleted files and folders including from volume shadow copies. The index outlives the file, which is the same reason the week's front page works. BelkaGPT now runs on more modest hardware.</p>
+            </div>
+
+            <div class="tool-card">
+                <span class="tool-badge badge-utility">Utility / Script</span>
+                <h4>ETW2JSON</h4>
+                <span class="tool-version">Forensic fork &mdash; sumeshi</span>
+                <p>Converts Windows ETL trace files to JSON lines, recording schema provenance for every decode and keeping undecodable events with their raw payload rather than dropping them. The host's own provider registrations are used only behind an explicit flag and labelled as such &mdash; so the output states where each field came from.</p>
+            </div>
+
+            <div class="tool-card">
+                <span class="tool-badge badge-opensource">Open Source</span>
+                <h4>Forensic Media Extractor</h4>
+                <span class="tool-version">v2026.11.327 &mdash; ThinkTank4n6</span>
+                <p>Recovers images and video from E01, raw and VM images, live devices and phone packages through file system parsing, deleted entries and carving, then presents them for grading in a browser backed by a shared hash store. Exports to Project VIC, Griffeye, C4All and LAVA. It deliberately does not classify: categorisation stays with the examiner.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="comprehensive-footer">
+        <div class="footer-section">
+            <h4>Priority CVE Advisories</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <strong>Archive Alert</strong>
+                    <span>CVE-2026-123158 (OpenSSH, &ldquo;SSHole&rdquo;)</span>
+                    <p>On Linux built against musl libc where password authentication runs without PAM, an oversized password authenticates as an account with no password set; fixed in 10.6p2, CISA KEV November 9. <em>Forensic Note:</em> There is no failed-login trail because the attempt succeeds &mdash; hunt the account, not the event.</p>
+                </div>
+                <div class="footer-entry">
+                    <strong>Archive Alert</strong>
+                    <span>CVE-2026-116606 (Barracuda ESG)</span>
+                    <p>An authentication bypass reaching the configuration-import function, letting a crafted backup archive overwrite global settings; chained with CVE-2026-111560 it gives root. CISA KEV November 10. <em>Forensic Note:</em> The intrusion is a configuration restore &mdash; capture the configuration and backup history before upgrading.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Recent Malware Watch</h4>
+            <div class="footer-grid">
+                <div class="footer-entry">
+                    <strong>Archive: November 10, 2026</strong>
+                    <span>cPGuard Update Hijack &mdash; Seventy-Two Minutes of Victims</span>
+                    <p>Stolen credentials reached the vendor's update infrastructure and pushed a script that around 2,950 Linux servers ran as root between 02:08 and 03:20 UTC. The fix removes the backdoor and the staged files together, so imaging has to come first.</p>
+                </div>
+                <div class="footer-entry">
+                    <strong>Archive: November 3, 2026</strong>
+                    <span>Skyw4lker &mdash; Account Takeover With Nothing on Disk</span>
+                    <p>A device-code phishing kit against Microsoft 365 that steals no password and drops no file: the victim approves an attacker-initiated device-code request on Microsoft's genuine sign-in page. One Entra ID device-code sign-in is the entire artefact.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="page-number">&mdash; Page 2 &mdash;</div>
+</div>
+
+</body>
+</html>
